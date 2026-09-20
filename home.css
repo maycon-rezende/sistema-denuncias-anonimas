@@ -39,6 +39,19 @@
 .btn-hero-ghost:hover{ background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.5); }
 .hero__reassurance{ color:#BFD1DF; font-size:.8rem; margin:16px 0 0; }
 .hero__reassurance span{ color:#F1D487; font-weight:800; margin-right:5px; }
+.hero__signals{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  margin-top:28px;
+  padding-top:18px;
+  border-top:1px solid rgba(210,224,235,.22);
+  color:#C5D6E2;
+  font-size:.75rem;
+  letter-spacing:.02em;
+}
+.hero__signals span{ display:inline-flex; align-items:center; gap:7px; }
+.hero__signals strong{ color:#F1D487; font:600 .72rem var(--font-mono); }
 
 /* --- Tíquete de demonstração no hero --- */
 .hero__tiquete-wrap{ display:flex; justify-content:center; }
@@ -99,8 +112,20 @@
 }
 .perfil-card--publico{
   background:var(--card);
-  border:1.5px dashed var(--line-strong);
+  border:2px solid var(--steel-600);
   box-shadow:var(--shadow-pop);
+}
+.perfil-card--publico::before{
+  content:'CAMINHO RECOMENDADO';
+  align-self:flex-start;
+  color:var(--steel-700);
+  background:#E5F0F7;
+  border-radius:4px;
+  padding:5px 8px;
+  font-size:.65rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  margin-bottom:14px;
 }
 .perfil-card--restrito{
   background:var(--ink-950);
@@ -143,6 +168,7 @@
 .home-entry::before{
   content:none;
 }
+.home-privacy{ border-left:4px solid var(--steel-600); }
 .section-heading,
 .perfis,
 .alert{ position:relative; z-index:1; }
@@ -154,10 +180,21 @@
 .home-section{ padding-block:72px; }
 .home-section--light{ background:#E4E8E5; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
 .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-.step{ background:#fff; border:1px solid var(--line); border-top:3px solid var(--signal); border-radius:var(--radius-md); padding:24px; box-shadow:var(--shadow-card); }
+.step{ position:relative; background:#fff; border:1px solid var(--line); border-top:3px solid var(--signal); border-radius:var(--radius-md); padding:24px; box-shadow:var(--shadow-card); }
 .step__number{ display:block; color:var(--signal-ink); font-family:var(--font-mono); font-size:.8rem; font-weight:600; margin-bottom:22px; }
 .step h3{ font-family:var(--font-body); font-size:1rem; margin-bottom:8px; }
 .step p{ font-size:.9rem; margin:0; }
+@media (min-width:761px){
+  .step:not(:last-child)::after{
+    content:'→';
+    position:absolute;
+    right:-25px;
+    top:50%;
+    z-index:2;
+    color:var(--signal);
+    font:600 1.3rem var(--font-mono);
+  }
+}
 .home-guidance{ padding-top:64px; padding-bottom:76px; }
 .guidance-panel{ display:grid; grid-template-columns:1.35fr .65fr; gap:28px; align-items:center; border-left:4px solid var(--signal); background:var(--paper-warm); padding:30px 34px; }
 .guidance-panel h2{ font-size:1.75rem; }
@@ -169,6 +206,7 @@
 
 @media (max-width:760px){
   .steps{ grid-template-columns:1fr; }
+  .hero__signals{ gap:8px 14px; }
   .guidance-panel{ grid-template-columns:1fr; gap:20px; padding:24px; }
   .guidance-panel__notice{ border-left:0; border-top:1px solid var(--line-strong); padding:18px 0 0; }
 }
