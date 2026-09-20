@@ -41,6 +41,7 @@
 }
 .brand--sidebar{ color:#fff; }
 .admin-nav{ display:flex; flex-direction:column; gap:4px; flex:1; }
+.admin-nav__grupo{ display:flex; flex-direction:column; gap:3px; }
 .admin-nav__item{
   position:relative;
   text-align:left;
@@ -53,6 +54,23 @@
   font-weight:500;
   cursor:pointer;
 }
+.admin-nav__item--grupo{ display:flex; align-items:center; justify-content:space-between; width:100%; }
+.admin-nav__chevron{ font-size:1.1rem; line-height:1; transition:transform .15s ease; }
+.admin-nav__grupo.is-collapsed .admin-nav__chevron{ transform:rotate(-90deg); }
+.admin-nav__subnav{ display:flex; flex-direction:column; gap:2px; margin-left:14px; padding-left:12px; border-left:1px solid var(--ink-700); }
+.admin-nav__grupo.is-collapsed .admin-nav__subnav{ display:none; }
+.admin-nav__subitem{
+  border:0;
+  border-radius:4px;
+  background:transparent;
+  color:#AFC5D5;
+  cursor:pointer;
+  font:500 .8rem var(--font-body);
+  padding:8px 10px;
+  text-align:left;
+}
+.admin-nav__subitem:hover,
+.admin-nav__subitem.is-active{ background:rgba(255,255,255,.09); color:#fff; }
 .admin-nav__item:hover{ background:rgba(255,255,255,.08); color:#fff; }
 .admin-nav__item.is-active{ background:rgba(255,255,255,.1); color:#fff; font-weight:600; }
 .admin-nav__item.is-active::before{
@@ -104,7 +122,16 @@
 @media (max-width:760px){ .filtros{ grid-template-columns:1fr 1fr; } }
 @media (max-width:560px){
   .filtros{ grid-template-columns:1fr; }
-  .filtros__acoes{ justify-content:stretch; }
+  .admin-sidebar{ position:sticky; top:0; z-index:5; padding:14px 18px; gap:14px; }
+  .admin-sidebar .brand{ margin-bottom:2px; }
+  .admin-nav{ flex-direction:row; align-items:flex-start; overflow-x:auto; padding-bottom:2px; }
+  .admin-nav__item{ white-space:nowrap; }
+  .admin-nav__grupo{ min-width:220px; }
+  .admin-nav__subnav{ flex-direction:row; margin-left:0; padding:0; border-left:0; overflow-x:auto; }
+  .admin-nav__subitem{ white-space:nowrap; }
+  .admin-nav__grupo.is-collapsed .admin-nav__subnav{ display:flex; opacity:.45; }
+  .admin-sidebar__rodape{ position:absolute; right:18px; top:14px; border:0; padding:0; display:flex; align-items:center; gap:8px; }
+  .admin-usuario{ margin:0; }
   .filtros__acoes .btn{ flex:1; }
 }
 

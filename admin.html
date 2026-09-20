@@ -59,7 +59,18 @@
 
       <nav class="admin-nav" aria-label="Seções do painel">
         <button class="admin-nav__item is-active" data-secao="visao-geral" type="button">Visão geral</button>
-        <button class="admin-nav__item" data-secao="denuncias" type="button">Denúncias</button>
+        <div class="admin-nav__grupo">
+          <button class="admin-nav__item admin-nav__item--grupo" data-secao="denuncias" type="button" aria-expanded="true">
+            <span>Denúncias</span><span class="admin-nav__chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="admin-nav__subnav" aria-label="Filtros de denúncias">
+            <button class="admin-nav__subitem is-active" data-filtro-prioridade="" type="button">Todas</button>
+            <button class="admin-nav__subitem" data-filtro-prioridade="urgente" type="button">Urgentes</button>
+            <button class="admin-nav__subitem" data-filtro-status="em_analise" type="button">Em análise</button>
+            <button class="admin-nav__subitem" data-filtro-status="em_investigacao" type="button">Em investigação</button>
+            <button class="admin-nav__subitem" data-filtro-status="concluida" type="button">Concluídas</button>
+          </div>
+        </div>
       </nav>
 
       <div class="admin-sidebar__rodape">

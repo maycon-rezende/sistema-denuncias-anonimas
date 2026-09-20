@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Navegação entre seções (sem recarregar página) ----------
   const itensNav = document.querySelectorAll('.admin-nav__item');
+  const subitensNav = document.querySelectorAll('.admin-nav__subitem');
   const secaoVisaoGeral = document.getElementById('secao-visao-geral');
   const secaoDenuncias = document.getElementById('secao-denuncias');
 
@@ -55,6 +56,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nome === 'denuncias') renderizarLista();
   }
   itensNav.forEach(i => i.addEventListener('click', () => irParaSecao(i.dataset.secao)));
+  subitensNav.forEach(item => item.addEventListener('click', () => {
+    subitensNav.forEach(subitem => subitem.classList.toggle('is-active', subitem === item));
+    irParaSecao('denuncias');
+    selPrioridade.value = item.dataset.filtroPrioridade || '';
+    selStatus.value = item.dataset.filtroStatus || '';
+    renderizarLista();
+  }));
+  document.querySelector('.admin-nav__item--grupo').addEventListener('click', (ev) => {
+    const grupo = ev.currentTarget.closest('.admin-nav__grupo');
+    const aberto = grupo.classList.toggle('is-collapsed') === false;
+    ev.currentTarget.setAttribute('aria-expanded', String(aberto));
+  });
   document.querySelectorAll('[data-ir-para]').forEach(btn =>
     btn.addEventListener('click', () => irParaSecao(btn.dataset.irPara))
   );
