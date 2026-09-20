@@ -133,3 +133,24 @@ sistema-denuncias/
   de sessão adequado.
 - Não há criptografia de anexos nem remoção automática de metadados de
   imagens (recomendável em um sistema de produção para reforçar o anonimato).
+
+## Ativar mural e chat online (Supabase)
+
+O mural de pessoas desaparecidas funciona localmente por padrão. Para ativar
+publicações e chat compartilhados entre dispositivos:
+
+1. Crie um projeto no [Supabase](https://supabase.com/).
+2. Abra o **SQL Editor** e execute `supabase-schema.sql`.
+3. Em **Project Settings > API**, copie a URL do projeto e a chave pública
+   `anon` para `supabase-config.js`:
+
+```js
+window.SUPABASE_CONFIG = {
+  url: 'https://seu-projeto.supabase.co',
+  anonKey: 'sua-chave-anon-publica'
+};
+```
+
+Nunca coloque a chave `service_role` no navegador ou no GitHub. As políticas
+SQL incluídas são adequadas apenas para demonstração; um ambiente real precisa
+de autenticação, moderação, limite de requisições e proteção de dados pessoais.
