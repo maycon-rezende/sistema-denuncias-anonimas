@@ -86,6 +86,18 @@ body::before{
   z-index:-1;
   background:linear-gradient(rgba(238,243,247,.84), rgba(238,243,247,.84)), url('img/rpd.jpg') center / cover no-repeat;
 }
+.pagina-home{ background-color:#DDE8F0; background-image:linear-gradient(135deg, rgba(10,38,64,.12), rgba(200,154,60,.12)), url('img/office.jpg'); }
+.pagina-home::before{ background:linear-gradient(135deg, rgba(221,232,240,.88), rgba(238,243,247,.76)), url('img/office.jpg') center / cover no-repeat; }
+.pagina-denunciante{ background-color:#D8E6F0; background-image:linear-gradient(135deg, rgba(30,77,114,.14), rgba(200,154,60,.08)), url('img/rpd.jpg'); }
+.pagina-denunciante::before{ background:linear-gradient(135deg, rgba(216,230,240,.9), rgba(238,243,247,.78)), url('img/rpd.jpg') center / cover no-repeat; }
+.pagina-mulheres{ background-color:#E2E8EF; background-image:linear-gradient(135deg, rgba(11,31,51,.12), rgba(200,154,60,.13)), url('img/office.jpg'); }
+.pagina-mulheres::before{ background:linear-gradient(135deg, rgba(226,232,239,.9), rgba(238,243,247,.78)), url('img/office.jpg') center / cover no-repeat; }
+.pagina-desaparecidos{ background-color:#D6E4EC; background-image:linear-gradient(135deg, rgba(30,77,114,.15), rgba(200,154,60,.1)), url('img/rpd.jpg'); }
+.pagina-desaparecidos::before{ background:linear-gradient(135deg, rgba(214,228,236,.9), rgba(238,243,247,.78)), url('img/rpd.jpg') center / cover no-repeat; }
+.pagina-admin{ background-color:#C8D8E5; background-image:linear-gradient(135deg, rgba(11,31,51,.2), rgba(47,107,150,.12)), url('img/rpd.jpg'); }
+.pagina-admin::before{ background:linear-gradient(135deg, rgba(200,216,229,.9), rgba(224,235,242,.76)), url('img/rpd.jpg') center / cover no-repeat; }
+.pagina-erro{ background-color:#D8E5EE; background-image:linear-gradient(135deg, rgba(11,31,51,.14), rgba(200,154,60,.1)), url('img/office.jpg'); }
+.pagina-erro::before{ background:linear-gradient(135deg, rgba(216,229,238,.9), rgba(238,243,247,.78)), url('img/office.jpg') center / cover no-repeat; }
 h1,h2,h3,h4{
   font-family:var(--font-display);
   color:var(--ink-950);

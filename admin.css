@@ -84,7 +84,7 @@
 .admin-sidebar__rodape .btn-ghost{ border-color:rgba(255,255,255,.25); color:#EEF5EF; }
 .admin-sidebar__rodape .btn-ghost:hover{ background:rgba(255,255,255,.08); }
 
-.admin-main{ padding:32px clamp(20px, 4vw, 48px) 60px; }
+.admin-main{ padding:32px clamp(20px, 4vw, 48px) 60px; background:rgba(221,232,240,.54); }
 .mb-18{ margin-bottom:18px; }
 
 /* ---------- Cartões de estatística ---------- */
