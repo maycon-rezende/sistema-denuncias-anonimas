@@ -180,6 +180,11 @@ code, .mono{ font-family:var(--font-mono); }
 .top-nav__action{ border:1px solid rgba(200,154,60,.8); color:#F1D487 !important; }
 .top-nav__action:hover,
 .top-nav__action:focus-visible{ background:var(--signal); border-color:var(--signal); color:var(--ink-950) !important; }
+.menu-mobile-toggle{ display:none; border:1px solid rgba(255,255,255,.28); border-radius:6px; background:rgba(255,255,255,.06); padding:8px; cursor:pointer; }
+.menu-mobile-toggle span{ display:block; width:21px; height:2px; background:#F1D487; margin:4px 0; transition:transform .18s ease, opacity .18s ease; }
+.menu-mobile-toggle.is-open span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
+.menu-mobile-toggle.is-open span:nth-child(2){ opacity:0; }
+.menu-mobile-toggle.is-open span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
 
 /* =========================================================
    Botões
@@ -344,9 +349,12 @@ footer.site-footer{ padding:28px 0 40px; color:var(--ink-faint); font-size:.82re
 .site-footer nav{ display:flex; flex-wrap:wrap; gap:16px; }
 .site-footer a{ color:var(--ink-soft); }
 @media (max-width:760px){
-  .top-bar__inner{ align-items:flex-start; gap:12px; flex-wrap:wrap; }
-  .top-nav{ width:100%; flex-wrap:nowrap; justify-content:flex-start; overflow-x:auto; padding-bottom:2px; }
-  .top-nav a{ flex:none; padding:6px 9px; font-size:.78rem; }
+  .top-bar__inner{ align-items:center; gap:12px; flex-wrap:wrap; }
+  .menu-mobile-toggle{ display:block; margin-left:auto; }
+  .top-nav{ display:none; width:100%; flex-direction:column; align-items:stretch; gap:4px; padding:10px; border:1px solid rgba(255,255,255,.16); border-radius:var(--radius-md); background:rgba(7,25,43,.97); box-shadow:0 12px 24px rgba(0,0,0,.2); }
+  .top-nav.is-open{ display:flex; animation:menu-descer .18s ease both; }
+  .top-nav a,.top-nav .saida-rapida{ flex:none; width:100%; text-align:left; padding:11px 12px; font-size:.84rem; }
+  @keyframes menu-descer{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:translateY(0); } }
   .site-footer__inner{ flex-direction:column; align-items:flex-start; }
 }
 

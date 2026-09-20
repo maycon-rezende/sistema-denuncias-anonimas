@@ -13,7 +13,8 @@
 <body class="pagina-desaparecidos">
 <header class="top-bar"><div class="container top-bar__inner">
   <a class="brand" href="index.html" aria-label="Voltar para a página inicial"><span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 4 5.5V11c0 5.2 3.4 9.7 8 11 4.6-1.3 8-5.8 8-11V5.5L12 2Z" stroke="#EAF0F7" stroke-width="1.6"/><path d="m9 12 2 2 4-4" stroke="#EAF0F7" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="brand__text">Sistema de Denúncias Anônimas<small>Pessoas desaparecidas</small></span></a>
-  <nav class="top-nav" aria-label="Navegação principal"><a href="index.html">Início</a><a href="denunciante.html">Registrar denúncia</a><a href="mulheres.html">Proteção à mulher</a></nav>
+  <button class="menu-mobile-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  <nav class="top-nav" id="menu-principal" aria-label="Navegação principal"><a href="index.html">Início</a><a href="denunciante.html">Registrar denúncia</a><a href="mulheres.html">Proteção à mulher</a></nav>
 </div></header>
 <main class="container page-orientacao">
   <section class="orientacao-hero"><div><p class="orientacao-kicker">Resposta rápida salva tempo</p><h1>Uma busca começa com informação.</h1><p>Veja o que fazer ao perceber um desaparecimento, como organizar informações e onde acompanhar orientações oficiais.</p><div class="orientacao-acoes"><a class="btn btn-primary" href="tel:190">Emergência · 190</a><a class="btn btn-ghost" href="https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/seguranca-publica/pessoas-desaparecidas" target="_blank" rel="noopener">Portal oficial</a></div></div><aside class="orientacao-hero__selo"><strong>Não espere 24 horas</strong><span>O registro deve ser feito assim que o desaparecimento for percebido. Procure a Polícia Civil ou a unidade policial mais próxima.</span></aside></section>
@@ -46,5 +47,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
 <script src="desaparecidos.js"></script>
+<script src="navegacao.js"></script>
 </body>
 </html>
