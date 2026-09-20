@@ -93,7 +93,20 @@
   grid-template-columns:1.6fr 1fr 1fr 1fr;
   gap:16px;
 }
+.filtros__acoes{
+  grid-column:1 / -1;
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  padding-top:2px;
+  border-top:1px solid var(--line);
+}
 @media (max-width:760px){ .filtros{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){
+  .filtros{ grid-template-columns:1fr; }
+  .filtros__acoes{ justify-content:stretch; }
+  .filtros__acoes .btn{ flex:1; }
+}
 
 /* ---------- Lista / tabela de denúncias ---------- */
 .linha-denuncia{

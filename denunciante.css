@@ -102,6 +102,7 @@
   cursor:pointer;
 }
 .field textarea{ min-height:150px; }
+.contador-ok{ color:var(--st-concluida) !important; font-weight:700; }
 
 #grupo-prioridade{ gap:8px; }
 #grupo-prioridade .radio-chip{ flex:1; text-align:center; min-width:92px; }

@@ -104,6 +104,42 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   [selStatus, selCategoria, selPrioridade].forEach(sel => sel.addEventListener('change', renderizarLista));
 
+  document.getElementById('btn-limpar-filtros').addEventListener('click', () => {
+    inputBusca.value = '';
+    selStatus.value = '';
+    selCategoria.value = '';
+    selPrioridade.value = '';
+    renderizarLista();
+  });
+
+  document.getElementById('btn-exportar-csv').addEventListener('click', () => {
+    const termo = inputBusca.value.trim().toLowerCase();
+    const filtradas = DB.listarDenuncias().filter(d => {
+      if (selStatus.value && d.status !== selStatus.value) return false;
+      if (selCategoria.value && d.categoria !== selCategoria.value) return false;
+      if (selPrioridade.value && d.prioridadeDeclarada !== selPrioridade.value) return false;
+      if (termo && !`${d.protocolo} ${d.local} ${d.descricao}`.toLowerCase().includes(termo)) return false;
+      return true;
+    });
+    const cabecalho = ['Protocolo', 'Categoria', 'Local', 'Data do registro', 'Status', 'Prioridade'];
+    const linhas = filtradas.map(d => [
+      d.protocolo,
+      DB.CATEGORIAS[d.categoria] || d.categoria,
+      d.local,
+      DB.formatarData(d.dataRegistro),
+      DB.STATUS[d.status]?.rotulo || d.status,
+      DB.PRIORIDADES[d.prioridadeDeclarada]?.rotulo || d.prioridadeDeclarada
+    ]);
+    const csv = [cabecalho, ...linhas].map(linha => linha.map(valor => `"${String(valor ?? '').replaceAll('"', '""')}"`).join(';')).join('\r\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `denuncias-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+
   function renderizarLista() {
     const termo = inputBusca.value.trim().toLowerCase();
     const fStatus = selStatus.value;

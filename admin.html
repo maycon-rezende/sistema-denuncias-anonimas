@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Painel Administrativo · Sistema de Denúncias Anônimas</title>
+<meta name="description" content="Painel restrito para análise e acompanhamento de denúncias recebidas.">
+<meta name="theme-color" content="#0B1F33">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="admin.css">
 </head>
@@ -129,6 +132,10 @@
               <option value="media">Média</option>
               <option value="baixa">Baixa</option>
             </select>
+          </div>
+          <div class="filtros__acoes">
+            <button class="btn btn-ghost btn-sm" id="btn-exportar-csv" type="button">Exportar CSV</button>
+            <button class="btn btn-ghost btn-sm" id="btn-limpar-filtros" type="button">Limpar filtros</button>
           </div>
         </div>
 

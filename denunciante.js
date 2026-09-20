@@ -30,8 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const vistaConfirmacao = document.getElementById('vista-confirmacao');
   const erroBox = document.getElementById('erro-formulario');
   const campoAnexo = document.getElementById('anexo');
+  const campoDescricao = document.getElementById('descricao');
+  const contadorDescricao = document.getElementById('contador-descricao');
 
   const LIMITE_ANEXO_BYTES = 1.5 * 1024 * 1024;
+
+  function atualizarContadorDescricao() {
+    const quantidade = campoDescricao.value.trim().length;
+    contadorDescricao.textContent = `${quantidade} caracteres · mínimo de 20`;
+    contadorDescricao.classList.toggle('contador-ok', quantidade >= 20);
+  }
+  campoDescricao.addEventListener('input', atualizarContadorDescricao);
+  atualizarContadorDescricao();
 
   function lerAnexoComoBase64(arquivo) {
     return new Promise((resolve, reject) => {
@@ -57,6 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!categoria || !local || descricao.length < 20) {
       erroBox.textContent = 'Verifique os campos obrigatórios: categoria, local e uma descrição com ao menos 20 caracteres.';
       erroBox.classList.remove('hidden');
+      if (!categoria) document.getElementById('categoria').focus();
+      else if (!local) document.getElementById('local').focus();
+      else campoDescricao.focus();
       erroBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
@@ -99,6 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('btn-nova-denuncia').addEventListener('click', () => {
     form.reset();
+    erroBox.classList.add('hidden');
+    atualizarContadorDescricao();
     vistaConfirmacao.classList.add('hidden');
     vistaFormulario.classList.remove('hidden');
   });
@@ -110,7 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
   formConsulta.addEventListener('submit', (ev) => {
     ev.preventDefault();
     const termo = document.getElementById('protocolo-busca').value.trim();
-    if (!termo) return;
+    resultado.innerHTML = '';
+    if (!termo) {
+      resultado.innerHTML = '<div class="alert alert-info" role="alert">Digite um número de protocolo para consultar o andamento.</div>';
+      document.getElementById('protocolo-busca').focus();
+      return;
+    }
 
     const registro = DB.buscarPorProtocolo(termo);
     if (!registro) {
