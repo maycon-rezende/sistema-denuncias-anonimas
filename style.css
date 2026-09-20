@@ -146,18 +146,28 @@ code, .mono{ font-family:var(--font-mono); }
 .brand__text{ font-family:var(--font-display); font-size:1.05rem; font-weight:600; letter-spacing:-.01em; }
 .brand__text small{ display:block; font-family:var(--font-body); font-size:.7rem; letter-spacing:.03em; color:#9BB0C4; font-weight:500; text-transform:uppercase; }
 
-.top-nav{ display:flex; gap:6px; }
+.top-nav{ display:flex; align-items:center; gap:8px; }
 .top-nav a{
   color:#C7D4E0;
-  padding:8px 14px;
+  padding:10px 13px;
   border-radius:var(--radius-sm);
   font-size:.9rem;
   font-weight:500;
+  transform-origin:center;
+  transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
 }
-.top-nav a:hover{ background:rgba(255,255,255,.08); text-decoration:none; color:#fff; }
+.top-nav a:hover,
+.top-nav a:focus-visible{
+  background:rgba(200,154,60,.16);
+  text-decoration:none;
+  color:#F1D487;
+  transform:scale(1.06);
+  box-shadow:0 4px 12px rgba(0,0,0,.14);
+}
 .top-nav a[aria-current="page"]{ background:rgba(255,255,255,.12); color:#fff; }
 .top-nav__action{ border:1px solid rgba(200,154,60,.8); color:#F1D487 !important; }
-.top-nav__action:hover{ background:var(--signal); border-color:var(--signal); color:var(--ink-950) !important; }
+.top-nav__action:hover,
+.top-nav__action:focus-visible{ background:var(--signal); border-color:var(--signal); color:var(--ink-950) !important; }
 
 /* =========================================================
    Botões
