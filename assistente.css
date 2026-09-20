@@ -1,0 +1,21 @@
+.assistente-toggle{position:fixed;right:22px;bottom:22px;z-index:40;border:1px solid var(--signal);border-radius:999px;background:var(--ink-950);color:#F1D487;box-shadow:0 10px 24px rgba(11,31,51,.25);padding:12px 16px;font:700 .82rem var(--font-body);cursor:pointer;transition:transform .18s ease,background-color .18s ease}
+.assistente-toggle:hover,.assistente-toggle:focus-visible{background:var(--ink-700);transform:translateY(-3px);outline:2px solid var(--signal);outline-offset:3px}
+.assistente-painel{position:fixed;right:22px;bottom:78px;z-index:40;width:min(370px,calc(100vw - 32px));background:#F9FBFC;border:1px solid var(--line-strong);border-top:4px solid var(--signal);border-radius:var(--radius-md);box-shadow:0 18px 44px rgba(11,31,51,.28);overflow:hidden}
+.assistente-painel.hidden{display:none}
+.assistente-cabecalho{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:var(--ink-950);color:#fff;padding:15px 16px}
+.assistente-cabecalho strong{display:block;font-size:.92rem}
+.assistente-cabecalho small{display:block;color:#BDD0DE;font-size:.7rem;margin-top:3px}
+.assistente-fechar{border:0;background:transparent;color:#F1D487;font-size:1.3rem;line-height:1;cursor:pointer;padding:0 4px}
+.assistente-mensagens{height:250px;overflow-y:auto;padding:14px;background:#EEF3F7}
+.assistente-msg{max-width:88%;padding:9px 11px;border-radius:8px;margin-bottom:9px;font-size:.82rem;line-height:1.42}
+.assistente-msg--bot{background:#fff;border:1px solid var(--line);color:var(--ink-text)}
+.assistente-msg--usuario{margin-left:auto;background:var(--ink-700);color:#fff}
+.assistente-acoes{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-top:1px solid var(--line);background:#fff}
+.assistente-acao{border:1px solid #AFC4D3;border-radius:999px;background:#F4F8FB;color:var(--steel-700);padding:6px 9px;font:600 .7rem var(--font-body);cursor:pointer}
+.assistente-acao:hover{background:#E5F0F7;border-color:var(--steel-600)}
+.assistente-form{display:flex;gap:7px;padding:10px 12px;border-top:1px solid var(--line);background:#fff}
+.assistente-form input{min-width:0;flex:1;border:1px solid var(--line-strong);border-radius:5px;padding:9px;font:inherit;font-size:.8rem}
+.assistente-form button{border:0;border-radius:5px;background:var(--ink-700);color:#fff;padding:0 12px;font-weight:700;cursor:pointer}
+.assistente-aviso{padding:7px 12px;background:#F5EBCF;color:#665625;font-size:.68rem;line-height:1.35}
+@media (max-width:560px){.assistente-toggle{right:14px;bottom:14px}.assistente-painel{right:14px;bottom:70px}.assistente-mensagens{height:230px}}
+@media (prefers-reduced-motion:reduce){.assistente-toggle{transition:none}}
