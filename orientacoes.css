@@ -51,6 +51,7 @@
 .orientacao-responsabilidade details{border:1px solid rgba(185,201,214,.8);border-radius:var(--radius-sm);background:rgba(249,251,252,.7);padding:12px 15px;color:var(--ink-soft);font-size:.8rem}
 .orientacao-responsabilidade summary{cursor:pointer;color:var(--steel-700);font-weight:700}
 .orientacao-responsabilidade p{font-size:.8rem;margin:10px 0 0;max-width:80ch}
+.orientacao-responsabilidade--top{margin:-10px 0 24px}
 .mural-layout{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);gap:22px;align-items:start}
 .mural-form h3,.mural-toolbar h3{font-family:var(--font-body);font-size:1.05rem;margin:0 0 18px}
 .mural-form{border-top-color:var(--signal)}
@@ -84,6 +85,6 @@
 @media (max-width:820px){.orientacao-hero{grid-template-columns:1fr}.orientacao-grid{grid-template-columns:1fr 1fr}.orientacao-contatos{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:820px){.mural-layout{grid-template-columns:1fr}}
 @media (max-width:560px){.page-orientacao{padding-top:28px}.orientacao-grid,.orientacao-two-col{grid-template-columns:1fr}.orientacao-contatos{grid-template-columns:1fr 1fr}.orientacao-hero__selo{padding:18px}.orientacao-acoes .btn{width:100%}.mural-toolbar{align-items:stretch;flex-direction:column}.mural-toolbar input{width:100%}.mural-card{grid-template-columns:96px 1fr}.mural-card img{width:96px;min-height:150px}.mural-card__top{flex-direction:column;gap:3px}.chat-form{grid-template-columns:1fr}.chat-form .btn{width:100%}}
-@media (max-width:760px){.pagina-mulheres::before{background-position:center top;background-size:cover}.modo-discreto__desktop{display:none}.modo-discreto__mobile{display:inline}}
+@media (max-width:760px){.pagina-mulheres::before{background-position:center top;background-size:cover}}
 @media (max-width:560px){.orientacao-discreta{align-items:stretch;flex-direction:column;gap:14px}.orientacao-discreta .btn{width:100%}.saida-rapida{font-size:.78rem;padding:7px 9px}}
 @media (prefers-reduced-motion: reduce){.page-orientacao > *, .orientacao-hero h1, .mural-card, .chat-message{animation:none}.orientacao-card,.orientacao-passo,.orientacao-passo__numero,.mural-card{transition:none}}
