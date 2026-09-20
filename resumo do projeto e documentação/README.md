@@ -47,7 +47,17 @@ Este projeto é um protótipo web responsivo para:
 - `arquitetura.md`: funcionamento técnico dos módulos.
 - `supabase-schema.sql`: código do banco, permissões e Storage.
 - `supabase-config.example.js`: modelo seguro de configuração pública.
+- `../supabase/functions/assistente/index.ts`: função segura que conecta o guia a uma IA.
+- `../supabase/functions/README.md`: configuração e publicação da função de IA.
 
 ## Aviso de segurança
 
 O projeto ainda é um protótipo acadêmico. Para produção, é necessário adicionar autenticação real, moderação, limitação de requisições, auditoria, proteção de dados pessoais, backups e revisão das políticas do Supabase.
+
+## Assistente com IA
+
+O guia virtual funciona localmente mesmo sem IA. Para ativar respostas
+generativas, publique a Edge Function em `supabase/functions/assistente` e
+configure `OPENAI_API_KEY` como segredo no Supabase. A chave nunca deve ser
+colocada no JavaScript do navegador ou no GitHub. O frontend mantém fallback
+local caso a função esteja indisponível.

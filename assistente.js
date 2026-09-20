@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     { termos: ['privacidade', 'seguro', 'sigilo', 'anônimo', 'anonimo'], texto: 'Use um dispositivo e uma conexão seguros. O protótipo não coleta IP; ainda assim, o histórico do navegador pode permanecer.' },
     { termos: ['falsa', 'falsas', 'verdade', 'trotes'], texto: 'Envie apenas informações verdadeiras e objetivas. Comunicações deliberadamente falsas podem prejudicar pessoas e ser encaminhadas às autoridades para esclarecimento.' }
   ];
+  const supabaseConfig = window.SUPABASE_CONFIG || {};
+  const endpointIa = supabaseConfig.url && supabaseConfig.anonKey ? `${supabaseConfig.url}/functions/v1/assistente` : '';
   const markup = `<button class="assistente-toggle" id="assistente-abrir" type="button" aria-expanded="false" aria-controls="assistente-painel">Guia de orientação</button><section class="assistente-painel hidden" id="assistente-painel" role="dialog" aria-label="Guia de orientação"><header class="assistente-cabecalho"><div><strong>Guia de orientação</strong><small>Respostas informativas e canais oficiais</small></div><button class="assistente-fechar" id="assistente-fechar" type="button" aria-label="Fechar guia">×</button></header><div class="assistente-mensagens" id="assistente-mensagens" aria-live="polite"></div><div class="assistente-aviso">Não envie nomes, endereços, documentos ou detalhes que possam colocar alguém em risco.</div><div class="assistente-acoes"><button class="assistente-acao" data-pergunta="Estou em perigo agora">Emergência</button><button class="assistente-acao" data-pergunta="Preciso de apoio para uma mulher">Apoio à mulher</button><button class="assistente-acao" data-pergunta="Quero registrar uma denúncia">Registrar</button><button class="assistente-acao" data-pergunta="Quero saber sobre desaparecidos">Desaparecidos</button></div><form class="assistente-form" id="assistente-form"><input id="assistente-input" maxlength="240" autocomplete="off" placeholder="Digite uma dúvida"><button type="submit">Enviar</button></form></section>`;
   document.body.insertAdjacentHTML('beforeend', markup);
   const abrir = document.getElementById('assistente-abrir');
@@ -14,7 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const mensagens = document.getElementById('assistente-mensagens');
   const input = document.getElementById('assistente-input');
   const adicionar = (texto, tipo = 'bot') => { const item = document.createElement('div'); item.className = `assistente-msg assistente-msg--${tipo}`; item.textContent = texto; mensagens.appendChild(item); mensagens.scrollTop = mensagens.scrollHeight; };
-  const responder = pergunta => { const normalizada = pergunta.toLowerCase(); const encontrada = respostas.find(item => item.termos.some(termo => normalizada.includes(termo))); adicionar(encontrada?.texto || 'Posso orientar sobre emergência, apoio à mulher, denúncias, pessoas desaparecidas e privacidade. Escolha uma opção ou escreva uma dúvida mais específica.'); };
+  const responderLocal = pergunta => { const normalizada = pergunta.toLowerCase(); const encontrada = respostas.find(item => item.termos.some(termo => normalizada.includes(termo))); return encontrada?.texto || 'Posso orientar sobre emergência, apoio à mulher, denúncias, pessoas desaparecidas e privacidade. Escolha uma opção ou escreva uma dúvida mais específica.'; };
+  const responder = async pergunta => {
+    if (!endpointIa) { adicionar(responderLocal(pergunta)); return; }
+    adicionar('Consultando o guia seguro...', 'bot');
+    try {
+      const resposta = await fetch(endpointIa, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: supabaseConfig.anonKey, Authorization: `Bearer ${supabaseConfig.anonKey}` }, body: JSON.stringify({ pergunta }) });
+      if (!resposta.ok) throw new Error('fallback');
+      const dados = await resposta.json();
+      mensagens.lastElementChild.textContent = dados.resposta || responderLocal(pergunta);
+    } catch { mensagens.lastElementChild.textContent = responderLocal(pergunta); }
+  };
   const abrirPainel = () => { painel.classList.remove('hidden'); abrir.setAttribute('aria-expanded', 'true'); input.focus(); if (!mensagens.children.length) adicionar('Olá. Posso ajudar a encontrar informações e canais oficiais. Em emergência, ligue 190.'); };
   const fecharPainel = () => { painel.classList.add('hidden'); abrir.setAttribute('aria-expanded', 'false'); };
   abrir.addEventListener('click', () => painel.classList.contains('hidden') ? abrirPainel() : fecharPainel());
