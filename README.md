@@ -16,8 +16,9 @@ npx serve .
 python3 -m http.server 8000
 ```
 
-Não há dependência de servidor, banco de dados ou instalação: todo o estado
-fica salvo no navegador do usuário.
+O frontend pode ser aberto sem servidor e funciona em modo local. Quando
+`supabase-config.js` está configurado, o mural e o chat usam o Supabase para
+compartilhar dados entre dispositivos.
 
 **Login de demonstração do Administrador:** usuário `delegado`, senha `delegacia123`
 (definidos em `storage.js`, função `loginAdmin`).
@@ -126,13 +127,16 @@ sistema-denuncias/
 
 ## Limitações do protótipo (fora do escopo acadêmico)
 
-- Os dados residem apenas no navegador local (`localStorage`); não há
-  backend, banco de dados real nem múltiplos dispositivos sincronizados.
+- As denúncias do fluxo principal continuam no navegador local (`localStorage`).
+  O mural e o chat possuem integração opcional com Supabase.
 - A autenticação do administrador é fixa no código, apenas para demonstração
   — um sistema real exigiria backend com senhas com hash, HTTPS e controle
   de sessão adequado.
 - Não há criptografia de anexos nem remoção automática de metadados de
   imagens (recomendável em um sistema de produção para reforçar o anonimato).
+- O protótipo não coleta nem rastreia IP. Essa decisão preserva a proposta de
+  canal sigiloso; mecanismos de abuso devem ser definidos com LGPD, moderação
+  e backend adequado antes de qualquer coleta técnica.
 
 ## Ativar mural e chat online (Supabase)
 
