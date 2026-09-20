@@ -16,34 +16,34 @@
 
 :root{
   /* --- Tinta institucional em tom escuro e neutro, para liberar a imagem de fundo --- */
-  --ink-950:#111B1C;
-  --ink-800:#1B2A2B;
-  --ink-700:#314D4B;
-  --steel-600:#4C5F5A;
-  --steel-700:#2E4340;
+  --ink-950:#0B1F33;
+  --ink-800:#123451;
+  --ink-700:#1E4D72;
+  --steel-600:#2F6B96;
+  --steel-700:#1B4C73;
 
   /* --- Papel (frio, não o cream quente de template) --- */
-  --paper:#F1EFE8;
-  --paper-warm:#FAF7F0;
+  --paper:#EEF3F7;
+  --paper-warm:#F9FBFC;
   --card:#FFFFFF;
-  --ink-text:#16232F;
-  --ink-soft:#57636E;
-  --ink-faint:#8792A0;
-  --line:#DADFDC;
-  --line-strong:#C1C9C5;
+  --ink-text:#172B3D;
+  --ink-soft:#536678;
+  --ink-faint:#7C8D9D;
+  --line:#D6E0E8;
+  --line-strong:#B9C9D6;
 
   /* --- Sinalizador âmbar: o "farol" do sistema — usado só no
      motivo do protocolo/tíquete e em poucos realces, nunca como
      cor de fundo geral --- */
-  --signal:#C98A2C;
-  --signal-ink:#7A4E15;
-  --signal-soft:#F6E7CE;
+  --signal:#C89A3C;
+  --signal-ink:#765A19;
+  --signal-soft:#F5EBCF;
 
   /* --- Cores de status (funcionais, não decorativas) --- */
-  --st-recebida:#B8802E;
-  --st-analise:#34735B;
-  --st-investigacao:#2F7D6B;
-  --st-concluida:#2E7D4F;
+  --st-recebida:#A87520;
+  --st-analise:#2F648A;
+  --st-investigacao:#1F7890;
+  --st-concluida:#2F765A;
   --st-arquivada:#7A8492;
   --st-urgente:#B23A3A;
 
@@ -60,8 +60,8 @@
   /* --- Espaçamento e forma --- */
   --radius-sm:5px;
   --radius-md:8px;
-  --shadow-card:0 1px 2px rgba(12,27,41,.06), 0 1px 1px rgba(12,27,41,.04);
-  --shadow-pop:0 18px 40px rgba(12,27,41,.20);
+  --shadow-card:0 1px 2px rgba(11,31,51,.07), 0 5px 16px rgba(11,31,51,.05);
+  --shadow-pop:0 18px 40px rgba(11,31,51,.22);
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
@@ -71,7 +71,7 @@ body{
   font-family:var(--font-body);
   color:var(--ink-text);
   background-color:var(--paper);
-  background-image:linear-gradient(rgba(241,239,232,.78), rgba(241,239,232,.78)), url('img/rpd.jpg');
+  background-image:linear-gradient(rgba(238,243,247,.84), rgba(238,243,247,.84)), url('img/rpd.jpg');
   background-size:cover;
   background-position:center;
   background-attachment:fixed;
@@ -84,7 +84,7 @@ body::before{
   position:fixed;
   inset:0;
   z-index:-1;
-  background:linear-gradient(rgba(241,239,232,.78), rgba(241,239,232,.78)), url('img/rpd.jpg') center / cover no-repeat;
+  background:linear-gradient(rgba(238,243,247,.84), rgba(238,243,247,.84)), url('img/rpd.jpg') center / cover no-repeat;
 }
 h1,h2,h3,h4{
   font-family:var(--font-display);
@@ -125,6 +125,7 @@ code, .mono{ font-family:var(--font-mono); }
   background:var(--ink-950);
   color:#EFF3F6;
   border-bottom:3px solid var(--signal);
+  box-shadow:0 3px 14px rgba(11,31,51,.18);
 }
 .top-bar__inner{
   display:flex;
@@ -155,7 +156,7 @@ code, .mono{ font-family:var(--font-mono); }
 }
 .top-nav a:hover{ background:rgba(255,255,255,.08); text-decoration:none; color:#fff; }
 .top-nav a[aria-current="page"]{ background:rgba(255,255,255,.12); color:#fff; }
-.top-nav__action{ border:1px solid rgba(225,148,105,.7); color:#F0B08C !important; }
+.top-nav__action{ border:1px solid rgba(200,154,60,.8); color:#F1D487 !important; }
 .top-nav__action:hover{ background:var(--signal); border-color:var(--signal); color:var(--ink-950) !important; }
 
 /* =========================================================
@@ -172,7 +173,7 @@ code, .mono{ font-family:var(--font-mono); }
   transition:background-color .15s ease, border-color .15s ease, color .15s ease, transform .1s ease;
 }
 .btn:active{ transform:translateY(1px); }
-.btn-primary{ background:var(--steel-600); color:#fff; }
+.btn-primary{ background:var(--ink-700); color:#fff; }
 .btn-primary:hover{ background:var(--steel-700); }
 .btn-ghost{ background:transparent; border-color:var(--line-strong); color:var(--ink-text); }
 .btn-ghost:hover{ background:#fff; }
@@ -229,7 +230,7 @@ code, .mono{ font-family:var(--font-mono); }
 .radio-chip:has(input:checked){
   border-color:var(--steel-600);
   color:var(--steel-700);
-  background:#E3F0E8;
+  background:#E5F0F7;
 }
 .radio-chip:has(input:focus-visible){ outline:3px solid var(--steel-600); outline-offset:2px; }
 
@@ -254,7 +255,7 @@ code, .mono{ font-family:var(--font-mono); }
 }
 .badge::before{ content:''; width:7px; height:7px; border-radius:50%; background:currentColor; }
 .badge-recebida{ color:var(--st-recebida); background:#FBF1E2; }
-.badge-analise{ color:var(--st-analise); background:#E3F0E8; }
+.badge-analise{ color:var(--st-analise); background:#E5F0F7; }
 .badge-investigacao{ color:var(--st-investigacao); background:#E6F2EF; }
 .badge-concluida{ color:var(--st-concluida); background:#E9F5EC; }
 .badge-arquivada{ color:var(--st-arquivada); background:#EEF0F2; }
@@ -265,7 +266,7 @@ code, .mono{ font-family:var(--font-mono); }
 .badge-prio-urgente{ color:var(--st-urgente); background:#FBEAEA; }
 
 .alert{ border-radius:var(--radius-sm); padding:14px 16px; font-size:.88rem; border:1px solid transparent; }
-.alert-info{ background:#E3F0E8; color:var(--steel-700); border-color:#BFDCC9; }
+.alert-info{ background:#E5F0F7; color:var(--steel-700); border-color:#BED4E3; }
 .alert-error{ background:#FBEAEA; color:#8A2C2C; border-color:#F0CACA; }
 .alert-success{ background:#E9F5EC; color:#20603B; border-color:#C9E6D3; }
 

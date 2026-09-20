@@ -9,8 +9,8 @@
   align-items:center;
   justify-content:center;
   background:
-    radial-gradient(900px 360px at 15% 0%, rgba(52,115,91,.3), transparent 60%),
-    linear-gradient(rgba(23,63,53,.88), rgba(23,63,53,.88)),
+    radial-gradient(900px 360px at 15% 0%, rgba(47,107,150,.34), transparent 60%),
+    linear-gradient(rgba(7,29,50,.9), rgba(18,58,89,.9)),
     url('img/rpd.jpg') center / cover no-repeat;
   padding:24px;
 }
@@ -32,7 +32,7 @@
 
 .admin-sidebar{
   background:var(--ink-950);
-  color:#EEF5EF;
+  color:#EEF5FB;
   padding:22px 18px;
   display:flex;
   flex-direction:column;
@@ -46,7 +46,7 @@
   text-align:left;
   background:transparent;
   border:none;
-  color:#C7D9CF;
+  color:#C7D8E5;
   padding:10px 12px;
   border-radius:var(--radius-sm);
   font-size:.92rem;
@@ -61,7 +61,7 @@
 }
 
 .admin-sidebar__rodape{ border-top:1px solid var(--ink-700); padding-top:14px; }
-.admin-usuario{ font-size:.82rem; color:#B5CBBF; margin-bottom:10px; }
+.admin-usuario{ font-size:.82rem; color:#B5C9D8; margin-bottom:10px; }
 .admin-sidebar__rodape .btn-ghost{ border-color:rgba(255,255,255,.25); color:#EEF5EF; }
 .admin-sidebar__rodape .btn-ghost:hover{ background:rgba(255,255,255,.08); }
 

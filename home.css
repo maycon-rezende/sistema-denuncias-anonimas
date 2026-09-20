@@ -3,8 +3,8 @@
    ========================================================= */
 
 .hero{
-  background:linear-gradient(rgba(10,15,17,.62), rgba(10,15,17,.80)), url('img/rpd.jpg') center / cover no-repeat;
-  color:#F4F7F1;
+  background:linear-gradient(115deg, rgba(7,25,43,.93), rgba(18,58,89,.76)), url('img/rpd.jpg') center / cover no-repeat;
+  color:#F4F7FB;
   padding-block:60px 96px;
   overflow:hidden;
   position:relative;
@@ -19,7 +19,7 @@
 
 .hero__eyebrow{
   display:inline-flex; align-items:center; gap:8px;
-  color:#F0B08C;
+  color:#F1D487;
   font-weight:700;
   font-size:.8rem;
   letter-spacing:.04em;
@@ -33,12 +33,12 @@
   max-width:15ch;
   margin-bottom:.4em;
 }
-.hero__lead{ color:#C6D8CE; font-size:1.07rem; max-width:52ch; margin-bottom:0; }
+.hero__lead{ color:#D2E0EB; font-size:1.07rem; max-width:52ch; margin-bottom:0; }
 .hero__actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
 .btn-hero-ghost{ border-color:rgba(255,255,255,.28); color:#fff; }
 .btn-hero-ghost:hover{ background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.5); }
-.hero__reassurance{ color:#B8CEC3; font-size:.8rem; margin:16px 0 0; }
-.hero__reassurance span{ color:#E19469; font-weight:800; margin-right:5px; }
+.hero__reassurance{ color:#BFD1DF; font-size:.8rem; margin:16px 0 0; }
+.hero__reassurance span{ color:#F1D487; font-weight:800; margin-right:5px; }
 
 /* --- Tíquete de demonstração no hero --- */
 .hero__tiquete-wrap{ display:flex; justify-content:center; }
@@ -104,14 +104,14 @@
 }
 .perfil-card--restrito{
   background:var(--ink-950);
-  color:#DCEBE1;
+  color:#DCE8F1;
   border:1px solid var(--ink-700);
   box-shadow:var(--shadow-pop);
 }
 .perfil-card--restrito h2,
 .perfil-card--restrito .perfil-card__kicker{ color:#fff; }
-.perfil-card--restrito p{ color:#B8CEC3; }
-.perfil-card--restrito .perfil-card__lista{ color:#B8CEC3; }
+.perfil-card--restrito p{ color:#BFD1DF; }
+.perfil-card--restrito .perfil-card__lista{ color:#BFD1DF; }
 .perfil-card--restrito .perfil-card__lista li::before{ background:var(--signal); }
 
 .perfil-card__kicker{
@@ -137,7 +137,7 @@
   padding-top:72px;
   padding-bottom:64px;
   background:
-    linear-gradient(rgba(240,242,239,.72), rgba(240,242,239,.84)),
+    linear-gradient(rgba(238,243,247,.76), rgba(238,243,247,.9)),
     url('img/office.jpg') center / cover no-repeat;
 }
 .home-entry::before{
