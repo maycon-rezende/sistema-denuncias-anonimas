@@ -25,6 +25,9 @@ create table if not exists public.missing_person_messages (
 alter table public.missing_person_posts enable row level security;
 alter table public.missing_person_messages enable row level security;
 
+grant select, insert on public.missing_person_posts to anon;
+grant select, insert on public.missing_person_messages to anon;
+
 create policy "public can read missing posts" on public.missing_person_posts for select to anon using (true);
 create policy "public can publish missing posts" on public.missing_person_posts for insert to anon with check (true);
 create policy "public can read chat messages" on public.missing_person_messages for select to anon using (true);
