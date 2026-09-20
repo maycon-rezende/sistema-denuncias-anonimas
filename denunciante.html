@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denunciante · Sistema de Denúncias Anônimas</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="denunciante.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="container top-bar__inner">
+    <a href="index.html" class="brand" style="color:inherit">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 5.5V11c0 5.2 3.4 9.7 8 11 4.6-1.3 8-5.8 8-11V5.5L12 2z" stroke="#EAF0F7" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#EAF0F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="brand__text">Sistema de Denúncias Anônimas<small>Área do denunciante</small></span>
+    </a>
+    <nav class="top-nav" aria-label="Navegação do perfil denunciante">
+      <a href="index.html">Início</a>
+      <a href="admin.html">Sou da delegacia</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container page-den">
+
+  <div class="tabs" role="tablist" aria-label="Ações do denunciante">
+    <button class="tab is-active" id="tab-nova" role="tab" aria-selected="true" aria-controls="painel-nova">Registrar denúncia</button>
+    <button class="tab" id="tab-consulta" role="tab" aria-selected="false" aria-controls="painel-consulta">Consultar andamento</button>
+  </div>
+
+  <!-- ===================== PAINEL: NOVA DENÚNCIA ===================== -->
+  <section id="painel-nova" role="tabpanel" aria-labelledby="tab-nova">
+
+    <div id="vista-formulario">
+      <div class="card card-pad">
+        <h1>Registrar nova denúncia</h1>
+        <p class="mt-0">Preencha o que puder com segurança. Nenhum campo de identificação é solicitado — o formulário não coleta nome, e-mail, telefone ou IP.</p>
+
+        <div class="alert alert-info" role="note" style="margin-bottom:22px;">
+          Em caso de <strong>risco imediato à vida</strong>, ligue para o <strong>190</strong> (Polícia Militar) antes de usar este canal.
+        </div>
+
+        <form id="form-denuncia" novalidate>
+          <div class="field">
+            <label for="categoria">Categoria da ocorrência</label>
+            <select id="categoria" name="categoria" required>
+              <option value="" disabled selected>Selecione uma categoria</option>
+              <option value="furto">Furto</option>
+              <option value="roubo">Roubo</option>
+              <option value="violencia_domestica">Violência doméstica</option>
+              <option value="trafico">Tráfico de drogas</option>
+              <option value="vandalismo">Vandalismo / dano ao patrimônio</option>
+              <option value="ameaca">Ameaça</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="local">Local da ocorrência</label>
+              <input type="text" id="local" name="local" placeholder="Rua, bairro ou ponto de referência" required>
+            </div>
+            <div class="field">
+              <label for="dataOcorrido">Data aproximada</label>
+              <input type="date" id="dataOcorrido" name="dataOcorrido">
+              <p class="hint">Deixe em branco se não souber precisar.</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="descricao">Descreva o ocorrido</label>
+            <textarea id="descricao" name="descricao" placeholder="Conte o que aconteceu com o máximo de detalhes possível: pessoas envolvidas (sem precisar se identificar), veículos, horários, características…" required minlength="20"></textarea>
+            <p class="hint" id="contador-descricao">Mínimo de 20 caracteres.</p>
+          </div>
+
+          <div class="field">
+            <label>Nível de urgência percebido</label>
+            <div class="radio-group" id="grupo-prioridade">
+              <label class="radio-chip"><input type="radio" name="prioridade" value="baixa"> Baixa</label>
+              <label class="radio-chip"><input type="radio" name="prioridade" value="media" checked> Média</label>
+              <label class="radio-chip"><input type="radio" name="prioridade" value="alta"> Alta</label>
+              <label class="radio-chip"><input type="radio" name="prioridade" value="urgente"> Urgente</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="anexo">Anexar uma imagem (opcional)</label>
+            <input type="file" id="anexo" name="anexo" accept="image/*">
+            <p class="hint">Aceita apenas imagens, até 1,5&nbsp;MB. O arquivo não contém dados de identificação automaticamente.</p>
+          </div>
+
+          <div id="erro-formulario" class="alert alert-error hidden" role="alert"></div>
+
+          <button type="submit" class="btn btn-primary btn-block">Enviar denúncia anonimamente</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Confirmação exibida após o envio -->
+    <div id="vista-confirmacao" class="card card-pad hidden text-center">
+      <div class="confirmacao__icone" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#2E7D4F" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#2E7D4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h1>Denúncia registrada</h1>
+      <p>Guarde este número de protocolo. Ele é a <strong>única</strong> forma de acompanhar o andamento — não há como recuperá-lo depois.</p>
+      <div class="ticket text-center">
+        <div class="ticket__rotulo">Número de protocolo</div>
+        <div class="ticket__codigo" id="protocolo-gerado">DEN-2026-00000</div>
+      </div>
+      <div class="row" style="justify-content:center; gap:10px; margin-top:14px;">
+        <button class="btn btn-ghost btn-sm" id="btn-copiar-protocolo" type="button">Copiar protocolo</button>
+        <button class="btn btn-primary btn-sm" id="btn-nova-denuncia" type="button">Registrar outra denúncia</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PAINEL: CONSULTA ===================== -->
+  <section id="painel-consulta" role="tabpanel" aria-labelledby="tab-consulta" class="hidden">
+    <div class="card card-pad">
+      <h1>Consultar andamento</h1>
+      <p class="mt-0">Informe o número de protocolo recebido no momento do registro.</p>
+
+      <form id="form-consulta" class="row" style="align-items:flex-end; gap:12px;">
+        <div class="field" style="flex:1; margin-bottom:0;">
+          <label for="protocolo-busca">Número de protocolo</label>
+          <input type="text" id="protocolo-busca" placeholder="Ex.: DEN-2026-00001" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-primary">Consultar</button>
+      </form>
+
+      <div id="resultado-consulta" class="mt-24"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">Sistema de Denúncias Anônimas — Protótipo acadêmico, sem envio de dados reais.</footer>
+
+<script src="storage.js"></script>
+<script src="denunciante.js"></script>
+</body>
+</html>

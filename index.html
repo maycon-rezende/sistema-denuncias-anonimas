@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Denúncias Anônimas</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="container top-bar__inner">
+    <a class="brand" href="index.html" aria-label="Página inicial do Sistema de Denúncias Anônimas">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L4 5.5V11c0 5.2 3.4 9.7 8 11 4.6-1.3 8-5.8 8-11V5.5L12 2z" stroke="#EAF0F7" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M9 12l2 2 4-4" stroke="#EAF0F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="brand__text">Sistema de Denúncias Anônimas<small>Delegacia Digital — Protótipo</small></span>
+    </a>
+    <nav class="top-nav" aria-label="Navegação principal">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#orientacoes">Orientações</a>
+      <a class="top-nav__action" href="denunciante.html">Registrar denúncia</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="hero__eyebrow">Canal sigiloso · sem cadastro</p>
+        <h1>Um protocolo é tudo o que fica entre você e sua denúncia.</h1>
+        <p class="hero__lead">
+          Nenhum nome, e-mail ou telefone é pedido. Ao registrar uma ocorrência,
+          você recebe um número de protocolo — é a única chave para acompanhar
+          o andamento depois, e ninguém além de você a guarda.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn-primary" href="denunciante.html">Registrar denúncia <span aria-hidden="true">→</span></a>
+          <a class="btn btn-hero-ghost" href="denunciante.html#painel-consulta">Consultar protocolo</a>
+        </div>
+        <p class="hero__reassurance"><span aria-hidden="true">✓</span> Sem nome, e-mail, telefone ou login</p>
+      </div>
+      <div class="hero__tiquete-wrap" aria-hidden="true">
+        <div class="hero-ticket">
+          <div class="hero-ticket__topo">
+            <div>
+              <div class="hero-ticket__rotulo">Seu protocolo</div>
+            </div>
+            <div class="hero-ticket__selo">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 5.5V11c0 5.2 3.4 9.7 8 11 4.6-1.3 8-5.8 8-11V5.5L12 2z" stroke="#F4F3EE" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="hero-ticket__protocolo">DEN-2026-00042</div>
+          <div class="hero-ticket__rodape">
+            <span>Status<br><strong>Recebida</strong></span>
+            <span>Categoria<br><strong>Ameaça</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container home-entry" aria-labelledby="titulo-acesso">
+    <div class="section-heading">
+      <p class="section-kicker">Escolha seu caminho</p>
+      <h2 id="titulo-acesso">Acesso rápido ao sistema</h2>
+      <p>Use o canal público para registrar ou consultar uma ocorrência. A equipe autorizada acessa o painel restrito.</p>
+    </div>
+    <div class="perfis">
+      <article class="perfil-card perfil-card--publico">
+        <div class="perfil-card__kicker">Canal público</div>
+        <h2>Sou denunciante</h2>
+        <p>Registre uma nova ocorrência de forma anônima ou acompanhe uma denúncia já enviada usando o número de protocolo.</p>
+        <ul class="perfil-card__lista">
+          <li>Sem cadastro, sem login</li>
+          <li>Protocolo gerado na hora</li>
+          <li>Consulta de andamento a qualquer momento</li>
+        </ul>
+        <a class="btn btn-primary btn-block" href="denunciante.html">Acessar como denunciante</a>
+      </article>
+
+      <article class="perfil-card perfil-card--restrito">
+        <div class="perfil-card__kicker">Acesso restrito</div>
+        <h2>Sou da delegacia</h2>
+        <p>Acesse o painel administrativo para visualizar, priorizar e dar andamento às denúncias recebidas pelo sistema.</p>
+        <ul class="perfil-card__lista">
+          <li>Login restrito à equipe</li>
+          <li>Filtros por status, categoria e prioridade</li>
+          <li>Atualização de status e resposta ao denunciante</li>
+        </ul>
+        <a class="btn btn-ghost btn-block" href="admin.html">Acessar painel administrativo</a>
+      </article>
+    </div>
+
+    <div class="alert alert-info mt-24" role="note">
+      <strong>Sobre este protótipo:</strong> os dados são salvos apenas no navegador (armazenamento local),
+      para fins de demonstração acadêmica. Nenhuma informação é enviada a um servidor externo.
+    </div>
+  </section>
+
+  <section class="home-section home-section--light" id="como-funciona" aria-labelledby="titulo-como-funciona">
+    <div class="container">
+      <div class="section-heading section-heading--center">
+        <p class="section-kicker">Do registro ao acompanhamento</p>
+        <h2 id="titulo-como-funciona">Como funciona</h2>
+        <p>Um fluxo curto para você registrar informações com segurança e acompanhar o retorno.</p>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <span class="step__number">01</span>
+          <h3>Conte o que aconteceu</h3>
+          <p>Informe local, data aproximada, categoria e os detalhes que considerar importantes.</p>
+        </article>
+        <article class="step">
+          <span class="step__number">02</span>
+          <h3>Guarde o protocolo</h3>
+          <p>Ao enviar, o sistema gera um código único. Ele não é reenviado nem recuperado depois.</p>
+        </article>
+        <article class="step">
+          <span class="step__number">03</span>
+          <h3>Acompanhe quando quiser</h3>
+          <p>Consulte o andamento usando apenas o protocolo, sem criar conta ou informar seus dados.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="container home-section home-guidance" id="orientacoes" aria-labelledby="titulo-orientacoes">
+    <div class="guidance-panel">
+      <div>
+        <p class="section-kicker">Antes de começar</p>
+        <h2 id="titulo-orientacoes">Registre com segurança</h2>
+        <p>Não inclua seu nome ou informações que revelem sua identidade. Descreva fatos, horários, locais e características objetivas.</p>
+      </div>
+      <div class="guidance-panel__notice">
+        <strong>Risco imediato?</strong>
+        <span>Em uma emergência, ligue para <b>190</b>. Este canal não substitui o atendimento imediato.</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <span>Sistema de Denúncias Anônimas · Protótipo acadêmico</span>
+    <nav aria-label="Links do rodapé"><a href="#como-funciona">Como funciona</a><a href="#orientacoes">Orientações</a><a href="admin.html">Acesso da delegacia</a></nav>
+  </div>
+</footer>
+
+</body>
+</html>

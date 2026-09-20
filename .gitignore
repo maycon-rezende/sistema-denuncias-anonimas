@@ -1,0 +1,8 @@
+# Sistema operacional e editores
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Arquivos locais e temporários
+*.log
+*.tmp

@@ -1,0 +1,346 @@
+/* =========================================================
+   style.css — Base global, tokens de design e componentes
+   compartilhados entre os perfis Denunciante e Administrador
+
+   Conceito: "protocolo como tíquete de resguardo" — o número
+   de protocolo é o único elo entre a pessoa e sua denúncia,
+   então ele vira o elemento visual central do sistema (tratado
+   como um canhoto/tíquete perfurado), em vez de um dado de
+   formulário qualquer. O lado público (Denunciante) usa papel
+   claro e traço tracejado, como um formulário; o lado
+   institucional (Delegacia) usa tinta escura e traço sólido,
+   como um documento oficial — a cor separa os dois perfis.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root{
+  /* --- Tinta institucional em tom escuro e neutro, para liberar a imagem de fundo --- */
+  --ink-950:#111B1C;
+  --ink-800:#1B2A2B;
+  --ink-700:#314D4B;
+  --steel-600:#4C5F5A;
+  --steel-700:#2E4340;
+
+  /* --- Papel (frio, não o cream quente de template) --- */
+  --paper:#F1EFE8;
+  --paper-warm:#FAF7F0;
+  --card:#FFFFFF;
+  --ink-text:#16232F;
+  --ink-soft:#57636E;
+  --ink-faint:#8792A0;
+  --line:#DADFDC;
+  --line-strong:#C1C9C5;
+
+  /* --- Sinalizador âmbar: o "farol" do sistema — usado só no
+     motivo do protocolo/tíquete e em poucos realces, nunca como
+     cor de fundo geral --- */
+  --signal:#C98A2C;
+  --signal-ink:#7A4E15;
+  --signal-soft:#F6E7CE;
+
+  /* --- Cores de status (funcionais, não decorativas) --- */
+  --st-recebida:#B8802E;
+  --st-analise:#34735B;
+  --st-investigacao:#2F7D6B;
+  --st-concluida:#2E7D4F;
+  --st-arquivada:#7A8492;
+  --st-urgente:#B23A3A;
+
+  /* --- Tipografia ---
+     Fraunces: serva de identidade — só em títulos grandes e no
+     motivo do protocolo (peso editorial, não neutro).
+     Public Sans: interface e corpo de texto — desenhada para
+     serviços públicos, o que encaixa diretamente no assunto.
+     IBM Plex Mono: exclusiva dos números de protocolo/ficha. */
+  --font-display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body:'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  /* --- Espaçamento e forma --- */
+  --radius-sm:5px;
+  --radius-md:8px;
+  --shadow-card:0 1px 2px rgba(12,27,41,.06), 0 1px 1px rgba(12,27,41,.04);
+  --shadow-pop:0 18px 40px rgba(12,27,41,.20);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--ink-text);
+  background-color:var(--paper);
+  background-image:linear-gradient(rgba(241,239,232,.78), rgba(241,239,232,.78)), url('img/rpd.jpg');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(rgba(241,239,232,.78), rgba(241,239,232,.78)), url('img/rpd.jpg') center / cover no-repeat;
+}
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  color:var(--ink-950);
+  margin:0 0 .4em;
+  line-height:1.12;
+  font-weight:600;
+  letter-spacing:-.01em;
+}
+h2{ font-weight:600; }
+p{ margin:0 0 1em; color:var(--ink-soft); }
+a{ color:var(--steel-700); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+img{ max-width:100%; display:block; }
+button{ font-family:inherit; }
+code, .mono{ font-family:var(--font-mono); }
+
+.container{
+  width:100%;
+  max-width:1180px;
+  margin-inline:auto;
+  padding-inline:24px;
+}
+
+:focus-visible{
+  outline:3px solid var(--steel-600);
+  outline-offset:2px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+
+/* =========================================================
+   Topo institucional
+   ========================================================= */
+.top-bar{
+  background:var(--ink-950);
+  color:#EFF3F6;
+  border-bottom:3px solid var(--signal);
+}
+.top-bar__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-block:16px;
+}
+.brand{ display:flex; align-items:center; gap:12px; color:#fff; }
+.brand__mark{
+  width:38px;height:38px;
+  border-radius:7px;
+  background:var(--ink-800);
+  border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  flex:none;
+}
+.brand__mark svg{ width:19px;height:19px; }
+.brand__text{ font-family:var(--font-display); font-size:1.05rem; font-weight:600; letter-spacing:-.01em; }
+.brand__text small{ display:block; font-family:var(--font-body); font-size:.7rem; letter-spacing:.03em; color:#9BB0C4; font-weight:500; text-transform:uppercase; }
+
+.top-nav{ display:flex; gap:6px; }
+.top-nav a{
+  color:#C7D4E0;
+  padding:8px 14px;
+  border-radius:var(--radius-sm);
+  font-size:.9rem;
+  font-weight:500;
+}
+.top-nav a:hover{ background:rgba(255,255,255,.08); text-decoration:none; color:#fff; }
+.top-nav a[aria-current="page"]{ background:rgba(255,255,255,.12); color:#fff; }
+.top-nav__action{ border:1px solid rgba(225,148,105,.7); color:#F0B08C !important; }
+.top-nav__action:hover{ background:var(--signal); border-color:var(--signal); color:var(--ink-950) !important; }
+
+/* =========================================================
+   Botões
+   ========================================================= */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  border:1.5px solid transparent;
+  border-radius:var(--radius-sm);
+  padding:11px 20px;
+  font-size:.93rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:background-color .15s ease, border-color .15s ease, color .15s ease, transform .1s ease;
+}
+.btn:active{ transform:translateY(1px); }
+.btn-primary{ background:var(--steel-600); color:#fff; }
+.btn-primary:hover{ background:var(--steel-700); }
+.btn-ghost{ background:transparent; border-color:var(--line-strong); color:var(--ink-text); }
+.btn-ghost:hover{ background:#fff; }
+.btn-danger{ background:#fff; border-color:var(--st-urgente); color:var(--st-urgente); }
+.btn-danger:hover{ background:#FBEAEA; }
+.btn-block{ width:100%; }
+.btn-sm{ padding:7px 12px; font-size:.82rem; }
+.btn:disabled{ opacity:.55; cursor:not-allowed; }
+
+/* =========================================================
+   Formulários
+   ========================================================= */
+.field{ margin-bottom:18px; }
+.field label{
+  display:block;
+  font-size:.85rem;
+  font-weight:700;
+  color:var(--ink-950);
+  margin-bottom:6px;
+}
+.field .hint{ font-size:.78rem; color:var(--ink-faint); margin-top:5px; }
+.field input[type="text"],
+.field input[type="date"],
+.field input[type="password"],
+.field input[type="file"],
+.field select,
+.field textarea{
+  width:100%;
+  border:1.5px solid var(--line-strong);
+  border-radius:var(--radius-sm);
+  padding:11px 12px;
+  font-size:.95rem;
+  font-family:inherit;
+  color:var(--ink-text);
+  background:#fff;
+}
+.field textarea{ resize:vertical; min-height:120px; }
+.field input:focus,.field select:focus,.field textarea:focus{ border-color:var(--steel-600); }
+.field-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width:640px){ .field-row{ grid-template-columns:1fr; } }
+
+.radio-group{ display:flex; flex-wrap:wrap; gap:10px; }
+.radio-chip{
+  border:1.5px solid var(--line-strong);
+  border-radius:999px;
+  padding:8px 16px;
+  font-size:.85rem;
+  font-weight:600;
+  cursor:pointer;
+  color:var(--ink-soft);
+  background:#fff;
+}
+.radio-chip input{ position:absolute; opacity:0; pointer-events:none; }
+.radio-chip:has(input:checked){
+  border-color:var(--steel-600);
+  color:var(--steel-700);
+  background:#E3F0E8;
+}
+.radio-chip:has(input:focus-visible){ outline:3px solid var(--steel-600); outline-offset:2px; }
+
+/* =========================================================
+   Cartões, painéis, badges
+   ========================================================= */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  box-shadow:var(--shadow-card);
+}
+.card-pad{ padding:28px; }
+
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:.75rem; font-weight:700;
+  padding:4px 10px;
+  border-radius:999px;
+  letter-spacing:.2px;
+  white-space:nowrap;
+}
+.badge::before{ content:''; width:7px; height:7px; border-radius:50%; background:currentColor; }
+.badge-recebida{ color:var(--st-recebida); background:#FBF1E2; }
+.badge-analise{ color:var(--st-analise); background:#E3F0E8; }
+.badge-investigacao{ color:var(--st-investigacao); background:#E6F2EF; }
+.badge-concluida{ color:var(--st-concluida); background:#E9F5EC; }
+.badge-arquivada{ color:var(--st-arquivada); background:#EEF0F2; }
+
+.badge-prio-baixa{ color:#5B6774; background:#EEF0F2; }
+.badge-prio-media{ color:var(--st-recebida); background:#FBF1E2; }
+.badge-prio-alta{ color:#9A5A17; background:#FCE7CF; }
+.badge-prio-urgente{ color:var(--st-urgente); background:#FBEAEA; }
+
+.alert{ border-radius:var(--radius-sm); padding:14px 16px; font-size:.88rem; border:1px solid transparent; }
+.alert-info{ background:#E3F0E8; color:var(--steel-700); border-color:#BFDCC9; }
+.alert-error{ background:#FBEAEA; color:#8A2C2C; border-color:#F0CACA; }
+.alert-success{ background:#E9F5EC; color:#20603B; border-color:#C9E6D3; }
+
+/* =========================================================
+   O motivo do "protocolo" — usado na confirmação do
+   denunciante e como referência visual do sistema
+   ========================================================= */
+.ticket{
+  position:relative;
+  background:var(--paper-warm);
+  border:1.5px dashed var(--line-strong);
+  border-radius:var(--radius-sm);
+  padding:20px 22px;
+  margin:18px 0 4px;
+  overflow:hidden;
+}
+.ticket::before,.ticket::after{
+  content:'';
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:18px; height:18px; border-radius:50%;
+  background:var(--paper);
+  box-shadow:0 0 0 1.5px var(--line-strong) inset;
+}
+.ticket::before{ left:-9px; }
+.ticket::after{ right:-9px; }
+.ticket__rotulo{ font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; }
+.ticket__codigo{
+  font-family:var(--font-mono);
+  font-size:1.55rem;
+  font-weight:600;
+  letter-spacing:.03em;
+  color:var(--ink-950);
+}
+
+/* =========================================================
+   Utilitários
+   ========================================================= */
+.stack{ display:flex; flex-direction:column; gap:14px; }
+.row{ display:flex; align-items:center; gap:10px; }
+.between{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.muted{ color:var(--ink-faint); }
+.mt-0{ margin-top:0; }
+.mt-24{ margin-top:24px; }
+.hidden{ display:none !important; }
+.text-center{ text-align:center; }
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+footer.site-footer{ padding:28px 0 40px; color:var(--ink-faint); font-size:.82rem; }
+.site-footer__inner{ display:flex; align-items:center; justify-content:space-between; gap:18px; }
+.site-footer nav{ display:flex; flex-wrap:wrap; gap:16px; }
+.site-footer a{ color:var(--ink-soft); }
+@media (max-width:760px){
+  .top-bar__inner{ align-items:flex-start; gap:14px; }
+  .top-nav{ flex-wrap:wrap; justify-content:flex-end; }
+  .top-nav a{ padding:6px 8px; font-size:.78rem; }
+  .top-nav a:not(.top-nav__action){ display:none; }
+  .site-footer__inner{ flex-direction:column; align-items:flex-start; }
+}
+
+/* =========================================================
+   Metadado de protocolo e linha do tempo de histórico —
+   compartilhados entre a consulta do Denunciante e o painel
+   de detalhes do Administrador.
+   ========================================================= */
+.consulta-meta{ font-size:.86rem; color:var(--ink-faint); font-family:var(--font-mono); }
+
+.linha-tempo{ list-style:none; margin:18px 0 0; padding:0; border-left:2px solid var(--line); }
+.linha-tempo li{ position:relative; padding:0 0 18px 20px; }
+.linha-tempo li::before{
+  content:''; position:absolute; left:-6px; top:3px;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--steel-600); border:2px solid #fff; box-shadow:0 0 0 1px var(--line);
+}
+.linha-tempo li:last-child{ padding-bottom:0; }
+.linha-tempo time{ font-size:.76rem; color:var(--ink-faint); display:block; margin-bottom:2px; }

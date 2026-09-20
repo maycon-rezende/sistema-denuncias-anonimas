@@ -1,0 +1,48 @@
+/* =========================================================
+   denunciante.css — estilos exclusivos de denunciante.html
+   ========================================================= */
+
+.page-den{ padding-block:40px 60px; max-width:760px; }
+
+.tabs{
+  display:flex;
+  gap:4px;
+  background:#E7EBF0;
+  padding:4px;
+  border-radius:999px;
+  width:fit-content;
+  margin-bottom:24px;
+}
+.tab{
+  border:none;
+  background:transparent;
+  padding:9px 20px;
+  border-radius:999px;
+  font-size:.88rem;
+  font-weight:600;
+  color:var(--ink-soft);
+  cursor:pointer;
+}
+.tab.is-active{ background:#fff; color:var(--ink-950); box-shadow:var(--shadow-card); }
+
+.confirmacao__icone{ margin-bottom:10px; }
+.confirmacao__icone svg{ width:52px; height:52px; margin-inline:auto; }
+
+/* --- Resultado de consulta ---
+   (.consulta-meta e .linha-tempo ficam em style.css: o painel do
+   administrador também os usa no detalhe de cada denúncia) --- */
+.consulta-cabecalho{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:6px;
+}
+.consulta-cabecalho h2{ font-size:1.15rem; margin-bottom:2px; }
+
+.resposta-oficial{
+  margin-top:16px;
+  background:#E3F0E8;
+  border:1px solid #BFDCC9;
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+}
+.resposta-oficial strong{ color:var(--steel-700); display:block; margin-bottom:4px; font-size:.85rem; }

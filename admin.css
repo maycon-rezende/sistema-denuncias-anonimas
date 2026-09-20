@@ -1,0 +1,170 @@
+/* =========================================================
+   admin.css — estilos exclusivos de admin.html
+   ========================================================= */
+
+/* ---------- Login ---------- */
+.login-shell{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(900px 360px at 15% 0%, rgba(52,115,91,.3), transparent 60%),
+    linear-gradient(rgba(23,63,53,.88), rgba(23,63,53,.88)),
+    url('img/rpd.jpg') center / cover no-repeat;
+  padding:24px;
+}
+.login-card{ width:100%; max-width:420px; }
+.login-card code{
+  background:#EEF0F2; padding:2px 6px; border-radius:4px; font-size:.85em;
+}
+
+/* ---------- Shell com sidebar ---------- */
+.admin-shell{
+  display:grid;
+  grid-template-columns:250px 1fr;
+  min-height:100vh;
+}
+@media (max-width:860px){
+  .admin-shell{ grid-template-columns:1fr; }
+  .admin-sidebar{ position:sticky; top:0; z-index:5; }
+}
+
+.admin-sidebar{
+  background:var(--ink-950);
+  color:#EEF5EF;
+  padding:22px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+  border-right:1px solid var(--ink-700);
+}
+.brand--sidebar{ color:#fff; }
+.admin-nav{ display:flex; flex-direction:column; gap:4px; flex:1; }
+.admin-nav__item{
+  position:relative;
+  text-align:left;
+  background:transparent;
+  border:none;
+  color:#C7D9CF;
+  padding:10px 12px;
+  border-radius:var(--radius-sm);
+  font-size:.92rem;
+  font-weight:500;
+  cursor:pointer;
+}
+.admin-nav__item:hover{ background:rgba(255,255,255,.08); color:#fff; }
+.admin-nav__item.is-active{ background:rgba(255,255,255,.1); color:#fff; font-weight:600; }
+.admin-nav__item.is-active::before{
+  content:''; position:absolute; left:-18px; top:8px; bottom:8px; width:3px;
+  background:var(--signal); border-radius:2px;
+}
+
+.admin-sidebar__rodape{ border-top:1px solid var(--ink-700); padding-top:14px; }
+.admin-usuario{ font-size:.82rem; color:#B5CBBF; margin-bottom:10px; }
+.admin-sidebar__rodape .btn-ghost{ border-color:rgba(255,255,255,.25); color:#EEF5EF; }
+.admin-sidebar__rodape .btn-ghost:hover{ background:rgba(255,255,255,.08); }
+
+.admin-main{ padding:32px clamp(20px, 4vw, 48px) 60px; }
+.mb-18{ margin-bottom:18px; }
+
+/* ---------- Cartões de estatística ---------- */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:14px;
+}
+@media (max-width:760px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
+.stat-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-left:3px solid var(--steel-600);
+  border-radius:var(--radius-md);
+  padding:18px 20px;
+}
+.stat-card .valor{ font-family:var(--font-mono); font-size:1.9rem; color:var(--ink-950); font-weight:600; line-height:1; }
+.stat-card .rotulo{ font-size:.8rem; color:var(--ink-faint); margin-top:6px; }
+.stat-card.destaque{ border-left-color:var(--st-urgente); }
+.stat-card.destaque .valor{ color:var(--st-urgente); }
+
+/* ---------- Filtros ---------- */
+.filtros{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr 1fr;
+  gap:16px;
+}
+@media (max-width:760px){ .filtros{ grid-template-columns:1fr 1fr; } }
+
+/* ---------- Lista / tabela de denúncias ---------- */
+.linha-denuncia{
+  display:grid;
+  grid-template-columns:130px 1fr 150px 110px 120px 90px;
+  align-items:center;
+  gap:14px;
+  padding:14px 20px;
+  border-bottom:1px solid var(--line);
+  cursor:pointer;
+  background:#fff;
+}
+.linha-denuncia:last-child{ border-bottom:none; border-radius:0 0 var(--radius-md) var(--radius-md); }
+.linha-denuncia:first-child{ border-radius:var(--radius-md) var(--radius-md) 0 0; }
+.linha-denuncia:hover{ background:var(--paper); }
+.linha-denuncia__protocolo{ font-weight:600; font-size:.85rem; color:var(--ink-950); }
+.linha-denuncia__resumo{ min-width:0; }
+.linha-denuncia__categoria{ font-weight:600; font-size:.92rem; }
+.linha-denuncia__local{ font-size:.82rem; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.linha-denuncia__data{ font-size:.82rem; color:var(--ink-faint); }
+.linha-denuncia__acao{ font-size:.82rem; color:var(--steel-700); font-weight:600; text-align:right; }
+
+.linha-denuncia--cabecalho{
+  cursor:default;
+  background:var(--paper);
+  font-size:.74rem;
+  text-transform:none;
+  color:var(--ink-faint);
+  font-weight:600;
+  border-radius:var(--radius-md) var(--radius-md) 0 0;
+}
+.linha-denuncia--cabecalho:hover{ background:var(--paper); }
+
+@media (max-width:920px){
+  .linha-denuncia{ grid-template-columns:1fr auto; grid-template-areas:"protocolo acao" "resumo resumo" "status prioridade"; row-gap:6px; }
+  .linha-denuncia--cabecalho{ display:none; }
+  .linha-denuncia__data{ display:none; }
+}
+
+/* ---------- Recentes (visão geral) ---------- */
+.recente-item{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+.recente-item:last-child{ border-bottom:none; }
+.recente-item__info strong{ font-size:.9rem; display:block; }
+.recente-item__info span{ font-size:.78rem; color:var(--ink-faint); }
+
+/* ---------- Drawer de detalhes ---------- */
+.drawer{ position:fixed; inset:0; z-index:50; }
+.drawer__fundo{ position:absolute; inset:0; background:rgba(14,27,44,.45); }
+.drawer__painel{
+  position:absolute; top:0; right:0; bottom:0;
+  width:min(520px, 100%);
+  background:#fff;
+  box-shadow:-12px 0 30px rgba(14,27,44,.2);
+  display:flex; flex-direction:column;
+  animation:entrar-drawer .18s ease-out;
+}
+@keyframes entrar-drawer{ from{ transform:translateX(24px); opacity:.6; } to{ transform:translateX(0); opacity:1; } }
+.drawer__cabecalho{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+  padding:22px 24px 16px;
+  border-bottom:1px solid var(--line);
+}
+.drawer__corpo{ padding:20px 24px 32px; overflow-y:auto; flex:1; }
+
+.detalhe-bloco{ margin-bottom:20px; }
+.detalhe-bloco h3{ font-size:.78rem; text-transform:uppercase; letter-spacing:.4px; color:var(--ink-faint); font-family:var(--font-body); font-weight:700; margin-bottom:8px; }
+.detalhe-anexo{ max-width:100%; border-radius:var(--radius-sm); border:1px solid var(--line); }
+
+.status-select-row{ display:flex; gap:10px; }
+.status-select-row select{ flex:1; }
