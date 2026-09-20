@@ -41,6 +41,12 @@
 .orientacao-forum__item span{color:var(--ink-soft);font-size:.84rem}
 .orientacao-aviso{border-left:4px solid var(--signal);background:#F5EBCF;color:#5E4A1D;padding:16px 18px;border-radius:var(--radius-sm);font-size:.88rem}
 .orientacao-acoes{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.modo-discreto{font-size:.78rem!important;margin-top:14px;color:var(--ink-faint)!important}
+.modo-discreto kbd{border:1px solid var(--line-strong);border-bottom-width:2px;border-radius:4px;background:#fff;padding:2px 6px;font:600 .72rem var(--font-mono);color:var(--ink-700)}
+.saida-rapida{border:1px solid rgba(200,154,60,.75);border-radius:var(--radius-sm);background:transparent;color:#F1D487;cursor:pointer;font:500 .9rem var(--font-body);padding:10px 13px;transition:background-color .18s ease,color .18s ease,transform .18s ease}
+.saida-rapida:hover,.saida-rapida:focus-visible{background:var(--signal);color:var(--ink-950);transform:scale(1.04);outline:none}
+.orientacao-discreta{display:flex;align-items:center;justify-content:space-between;gap:24px;border-left:4px solid var(--signal)}
+.orientacao-discreta h2{font-family:var(--font-body);font-size:1.2rem}
 .mural-layout{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);gap:22px;align-items:start}
 .mural-form h3,.mural-toolbar h3{font-family:var(--font-body);font-size:1.05rem;margin:0 0 18px}
 .mural-form{border-top-color:var(--signal)}
@@ -74,4 +80,5 @@
 @media (max-width:820px){.orientacao-hero{grid-template-columns:1fr}.orientacao-grid{grid-template-columns:1fr 1fr}.orientacao-contatos{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:820px){.mural-layout{grid-template-columns:1fr}}
 @media (max-width:560px){.page-orientacao{padding-top:28px}.orientacao-grid,.orientacao-two-col{grid-template-columns:1fr}.orientacao-contatos{grid-template-columns:1fr 1fr}.orientacao-hero__selo{padding:18px}.orientacao-acoes .btn{width:100%}.mural-toolbar{align-items:stretch;flex-direction:column}.mural-toolbar input{width:100%}.mural-card{grid-template-columns:96px 1fr}.mural-card img{width:96px;min-height:150px}.mural-card__top{flex-direction:column;gap:3px}.chat-form{grid-template-columns:1fr}.chat-form .btn{width:100%}}
+@media (max-width:560px){.orientacao-discreta{align-items:stretch;flex-direction:column;gap:14px}.orientacao-discreta .btn{width:100%}.saida-rapida{font-size:.78rem;padding:7px 9px}}
 @media (prefers-reduced-motion: reduce){.page-orientacao > *, .orientacao-hero h1, .mural-card, .chat-message{animation:none}.orientacao-card,.orientacao-passo,.orientacao-passo__numero,.mural-card{transition:none}}
