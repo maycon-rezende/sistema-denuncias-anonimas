@@ -91,7 +91,7 @@ body::before{
 .pagina-denunciante{ background-color:#D8E6F0; background-image:linear-gradient(135deg, rgba(30,77,114,.14), rgba(200,154,60,.08)), url('img/rpd.jpg'); }
 .pagina-denunciante::before{ background:linear-gradient(135deg, rgba(216,230,240,.9), rgba(238,243,247,.78)), url('img/rpd.jpg') center / cover no-repeat; }
 .pagina-mulheres{ background-color:#E2E8EF; background-image:linear-gradient(135deg, rgba(11,31,51,.28), rgba(200,154,60,.13)), url('img/jill.jpg'); }
-.pagina-mulheres::before{ background:linear-gradient(135deg, rgba(226,232,239,.78), rgba(238,243,247,.68)), url('img/jill.jpg') center / cover no-repeat; }
+.pagina-mulheres::before{ background:linear-gradient(135deg, rgba(226,232,239,.78), rgba(238,243,247,.68)), url('img/jill.jpg') center 24% / cover no-repeat; }
 .pagina-desaparecidos{ background-color:#D6E4EC; background-image:linear-gradient(135deg, rgba(30,77,114,.15), rgba(200,154,60,.1)), url('img/rpd.jpg'); }
 .pagina-desaparecidos::before{ background:linear-gradient(135deg, rgba(214,228,236,.9), rgba(238,243,247,.78)), url('img/rpd.jpg') center / cover no-repeat; }
 .pagina-admin{ background-color:#C8D8E5; background-image:linear-gradient(135deg, rgba(11,31,51,.2), rgba(47,107,150,.12)), url('img/rpd.jpg'); }
