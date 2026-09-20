@@ -69,6 +69,7 @@
   padding:8px 10px;
   text-align:left;
 }
+.admin-nav__subitem:is(a){ display:block; text-decoration:none; }
 .admin-nav__subitem:hover,
 .admin-nav__subitem.is-active{ background:rgba(255,255,255,.09); color:#fff; }
 .admin-nav__item:hover{ background:rgba(255,255,255,.08); color:#fff; }

@@ -63,11 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
     selStatus.value = item.dataset.filtroStatus || '';
     renderizarLista();
   }));
-  document.querySelector('.admin-nav__item--grupo').addEventListener('click', (ev) => {
+  document.querySelectorAll('.admin-nav__item--grupo').forEach(botao => botao.addEventListener('click', (ev) => {
     const grupo = ev.currentTarget.closest('.admin-nav__grupo');
     const aberto = grupo.classList.toggle('is-collapsed') === false;
     ev.currentTarget.setAttribute('aria-expanded', String(aberto));
-  });
+  }));
   document.querySelectorAll('[data-ir-para]').forEach(btn =>
     btn.addEventListener('click', () => irParaSecao(btn.dataset.irPara))
   );
