@@ -133,3 +133,48 @@ Nunca colocar a chave `service_role` no site.
 - `node --check desaparecidos.js`.
 - `git diff --check`.
 - Conferência do status do GitHub Pages.
+
+## 11. Configuração pública do Supabase
+
+1. No Supabase, abrir **Configurações > Chaves API**.
+2. Copiar a **Chave publicável**, usando o botão de copiar.
+3. Colar somente a chave pública em `supabase-config.js`, no campo `anonKey`.
+4. Usar no campo `url` somente a URL base até `.co`, sem `/rest/v1/`.
+5. Testar as tabelas pelo endpoint REST.
+6. Confirmar HTTP 200 para `missing_person_posts` e `missing_person_messages`.
+7. Publicar o arquivo porque a chave `sb_publishable_` é própria para uso no navegador.
+
+Nunca publicar senha de banco, `service_role`, `secret` ou `OPENAI_API_KEY`.
+
+## 12. Publicação final
+
+Para publicar uma atualização:
+
+```powershell
+git status --short --branch
+git diff --check
+git add arquivo1 arquivo2
+git commit -m "descricao da alteracao"
+git push origin main
+gh api "repos/maycon-rezende/sistema-denuncias-anonimas/pages" --jq "{status,html_url}"
+```
+
+O GitHub Pages publica a raiz da branch `main`. Depois do push, o status pode
+ficar `building` por alguns instantes antes de mudar para `built`.
+
+## 13. Fluxo seguro para o assistente de IA
+
+1. O site carrega primeiro o assistente local, sem enviar conversas.
+2. Se o Supabase estiver configurado, o frontend chama a Edge Function.
+3. A Edge Function recebe uma pergunta limitada a 500 caracteres.
+4. A chave da IA fica como segredo no Supabase.
+5. A função aplica instruções de segurança e responde em português.
+6. Se a função falhar, o frontend usa as respostas locais.
+
+Comandos de publicação da função:
+
+```powershell
+supabase secrets set OPENAI_API_KEY=sua-chave
+supabase secrets set OPENAI_MODEL=gpt-4o-mini
+supabase functions deploy assistente
+```

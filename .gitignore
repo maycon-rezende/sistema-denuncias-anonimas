@@ -6,3 +6,6 @@ Thumbs.db
 # Arquivos locais e temporários
 *.log
 *.tmp
+.env
+.env.*
+!.env.example

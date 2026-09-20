@@ -49,10 +49,24 @@ Este projeto é um protótipo web responsivo para:
 - `supabase-config.example.js`: modelo seguro de configuração pública.
 - `../supabase/functions/assistente/index.ts`: função segura que conecta o guia a uma IA.
 - `../supabase/functions/README.md`: configuração e publicação da função de IA.
+- `historico-de-versoes.md`: principais alterações e commits realizados.
 
 ## Aviso de segurança
 
 O projeto ainda é um protótipo acadêmico. Para produção, é necessário adicionar autenticação real, moderação, limitação de requisições, auditoria, proteção de dados pessoais, backups e revisão das políticas do Supabase.
+
+## Programas e serviços usados
+
+- Visual Studio Code: edição dos arquivos e organização do projeto.
+- PowerShell: execução dos comandos locais.
+- Node.js: validação de sintaxe com `node --check`.
+- Git: commits, histórico e controle de alterações.
+- GitHub CLI (`gh`): criação do repositório, push e consulta do Pages.
+- GitHub: hospedagem do código.
+- GitHub Pages: publicação do frontend estático.
+- Supabase Dashboard: criação do projeto, SQL Editor e chaves públicas.
+- Supabase PostgreSQL, Storage e Realtime: dados online, fotos e chat.
+- Navegador: testes manuais das páginas e do painel Supabase.
 
 ## Assistente com IA
 
@@ -61,3 +75,10 @@ generativas, publique a Edge Function em `supabase/functions/assistente` e
 configure `OPENAI_API_KEY` como segredo no Supabase. A chave nunca deve ser
 colocada no JavaScript do navegador ou no GitHub. O frontend mantém fallback
 local caso a função esteja indisponível.
+
+## Estado atual
+
+- A URL e a chave publicável do Supabase estão configuradas em `supabase-config.js`.
+- O mural e o chat foram testados contra as tabelas online e retornaram HTTP 200.
+- A senha do banco permanece somente em `.env.local`, ignorada pelo Git.
+- A IA generativa está preparada, mas ainda depende da publicação da Edge Function e da configuração do segredo `OPENAI_API_KEY`.

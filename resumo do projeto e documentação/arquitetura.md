@@ -70,6 +70,10 @@ Estilos compartilhados pelas páginas de orientação, mural, cards, contatos e 
 
 Arquivo de configuração pública. Contém apenas URL e chave `anon`.
 
+Como a chave `sb_publishable_` é pública por definição, ela pode ser usada no
+frontend quando as tabelas estiverem protegidas por RLS. Senhas e chaves de
+servidor não devem aparecer neste arquivo.
+
 ### `supabase-schema.sql`
 
 Código SQL que cria as tabelas, políticas de Row Level Security, bucket de fotos e publicação Realtime.
@@ -107,6 +111,8 @@ Código SQL que cria as tabelas, políticas de Row Level Security, bucket de fot
 - Limite de 500 caracteres no chat.
 - Uso de `rel="noopener"` em links externos.
 - Nenhuma chave `service_role` no cliente.
+- A chave da OpenAI fica somente como segredo da Edge Function.
+- `.env.local` é ignorado pelo Git.
 
 ## Segurança necessária antes de produção
 
@@ -117,3 +123,15 @@ Código SQL que cria as tabelas, políticas de Row Level Security, bucket de fot
 - Proteção de telefone e consentimento verificável.
 - Auditoria e backups.
 - Políticas de exclusão e correção de dados conforme LGPD.
+
+## Testes de integração executados
+
+Com a configuração local preenchida, foram consultados:
+
+```text
+GET /rest/v1/missing_person_posts?select=*&limit=1 -> HTTP 200
+GET /rest/v1/missing_person_messages?select=*&limit=1 -> HTTP 200
+```
+
+O resultado confirmou que a URL, a chave pública, as tabelas, os `GRANT`s e
+as políticas RLS estavam compatíveis com o acesso do papel `anon`.
