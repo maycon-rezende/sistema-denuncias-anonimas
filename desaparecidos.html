@@ -32,11 +32,82 @@
         <div class="field"><label for="desaparecido-data">Último contato</label><input id="desaparecido-data" required type="text" placeholder="Data, horário e local"></div>
         <div class="field"><label for="desaparecido-caracteristicas">Características e roupas</label><textarea id="desaparecido-caracteristicas" required minlength="20" placeholder="Altura, cabelo, sinais, roupa e outras informações úteis"></textarea></div>
         <div class="field"><label for="desaparecido-contato">Telefone de contato</label><input id="desaparecido-contato" required type="tel" placeholder="Número autorizado para receber informações"><p class="hint">Publique apenas um contato autorizado. Não coloque endereço ou documentos.</p></div>
-        <div class="field"><label for="desaparecido-foto">Foto recente</label><input id="desaparecido-foto" required type="file" accept="image/*"><p class="hint">Imagem de até 1,5 MB. A foto ficará salva somente neste navegador neste protótipo.</p></div>
+        <div class="field"><label for="desaparecido-foto">Foto recente</label><input id="desaparecido-foto" required type="file" accept="image/*"><p class="hint">Imagem de até 5 MB. Quando online, a foto é enviada para o armazenamento do Supabase; quando offline, fica salva apenas neste navegador.</p></div>
         <div id="erro-mural" class="alert alert-error hidden" role="alert"></div><button class="btn btn-primary btn-block" type="submit">Publicar no mural</button>
       </form>
-      <div><div class="mural-toolbar"><h3>Publicações recentes</h3><label class="sr-only" for="busca-mural">Buscar no mural</label><input id="busca-mural" type="search" placeholder="Buscar nome ou cidade"></div><div id="lista-desaparecidos" class="mural-lista"></div><p id="mural-vazio" class="orientacao-aviso hidden">Nenhuma publicação encontrada.</p></div>
+      <div>
+        <div class="mural-toolbar"><h3>Publicações recentes</h3><label class="sr-only" for="busca-mural">Buscar no mural</label><input id="busca-mural" type="search" placeholder="Buscar nome ou cidade"></div>
+        <div id="lista-desaparecidos" class="mural-lista"></div>
+        <p id="mural-vazio" class="orientacao-aviso hidden">Nenhuma publicação encontrada.</p>
+      </div>
     </div>
+
+    <div id="painel-edicao" class="mural-edicao hidden" aria-live="polite">
+      <div class="mural-edicao__header">
+        <h3 id="edicao-titulo">Editar publicação</h3>
+        <button type="button" class="mural-edicao__close" data-fechar-edicao>Fechar</button>
+      </div>
+      <form id="form-edicao-post" class="mural-edicao__form">
+        <input id="edicao-post-id" type="hidden">
+
+        <div class="field field--full">
+          <label for="edicao-nome">Nome da pessoa</label>
+          <input id="edicao-nome" type="text" placeholder="Nome completo ou como é conhecida">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="edicao-idade">Idade</label>
+            <input id="edicao-idade" type="text" inputmode="numeric" placeholder="Ex.: 16 anos">
+          </div>
+          <div class="field">
+            <label for="edicao-cidade">Cidade/UF</label>
+            <input id="edicao-cidade" type="text" placeholder="Cidade onde foi visto">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="edicao-ultimo-contato">Último contato</label>
+          <input id="edicao-ultimo-contato" type="text" placeholder="Data, horário e local">
+        </div>
+
+        <div class="field">
+          <label for="edicao-caracteristicas">Características e roupas</label>
+          <textarea id="edicao-caracteristicas" minlength="20" placeholder="Altura, cabelo, sinais, roupa e outras informações úteis"></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="edicao-contato">Contato</label>
+            <input id="edicao-contato" type="tel" placeholder="Número autorizado">
+          </div>
+          <div class="field">
+            <label for="edicao-status">Status</label>
+            <select id="edicao-status">
+              <option value="desaparecida">Desaparecida</option>
+              <option value="encontrada">Encontrada</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="edicao-fotos">Adicionar ou trocar fotos</label>
+          <input id="edicao-fotos" type="file" accept="image/*" multiple>
+          <p class="hint">Você pode enviar até 4 imagens novas. A primeira será usada como capa principal.</p>
+        </div>
+
+        <div class="mural-edicao__actions">
+          <button class="btn btn-primary" type="submit">Salvar alterações</button>
+          <button class="btn btn-ghost mural-edicao__delete" type="button" data-excluir-post>Excluir publicação</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="orientacao-section" aria-labelledby="titulo-encontrados">
+    <div class="orientacao-section__heading"><p class="orientacao-kicker">Casos encerrados</p><h2 id="titulo-encontrados">Pessoas encontradas</h2><p>Quando um caso for confirmado, o registro pode ser marcado como encontrado e continuar visível para a comunidade com o status atualizado.</p></div>
+    <div id="lista-encontrados" class="mural-lista mural-lista--compact"></div>
+    <p id="mural-encontrados-vazio" class="orientacao-aviso hidden">Nenhuma pessoa foi marcada como encontrada ainda.</p>
   </section>
   <section class="orientacao-section" id="chat-comunitario" aria-labelledby="titulo-chat">
     <div class="orientacao-section__heading"><p class="orientacao-kicker">Comunidade</p><h2 id="titulo-chat">Chat de informações</h2><p>Use este espaço para compartilhar uma informação objetiva. Não publique acusações, dados sensíveis ou localização em tempo real.</p></div>

@@ -22,6 +22,12 @@ create table if not exists public.missing_person_messages (
   created_at timestamptz not null default now()
 );
 
+-- Migração segura para projetos que já tinham a tabela criada.
+alter table public.missing_person_posts add column if not exists gallery text[] not null default '{}';
+alter table public.missing_person_posts add column if not exists status text not null default 'desaparecida';
+alter table public.missing_person_posts drop constraint if exists missing_person_posts_status_check;
+alter table public.missing_person_posts add constraint missing_person_posts_status_check check (status in ('desaparecida', 'encontrada'));
+
 alter table public.missing_person_posts enable row level security;
 alter table public.missing_person_messages enable row level security;
 
