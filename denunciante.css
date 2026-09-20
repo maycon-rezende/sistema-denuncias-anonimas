@@ -2,31 +2,127 @@
    denunciante.css — estilos exclusivos de denunciante.html
    ========================================================= */
 
-.page-den{ padding-block:40px 60px; max-width:760px; }
+.page-den{
+  max-width:860px;
+  padding-block:42px 72px;
+  position:relative;
+}
+.page-den::before{
+  content:'CANAL OFICIAL · REGISTRO SIGILOSO';
+  display:block;
+  color:var(--steel-700);
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.12em;
+  margin-bottom:12px;
+}
 
 .tabs{
   display:flex;
   gap:4px;
-  background:#E7EBF0;
+  background:#DCE7EF;
   padding:4px;
-  border-radius:999px;
-  width:fit-content;
-  margin-bottom:24px;
+  border-radius:var(--radius-md);
+  width:100%;
+  max-width:520px;
+  margin-bottom:26px;
+  border:1px solid #C7D8E4;
 }
 .tab{
   border:none;
   background:transparent;
-  padding:9px 20px;
-  border-radius:999px;
+  padding:11px 18px;
+  border-radius:5px;
   font-size:.88rem;
   font-weight:600;
-  color:var(--ink-soft);
+  color:var(--steel-700);
+  cursor:pointer;
+  flex:1;
+  transition:background-color .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.tab:hover{ color:var(--ink-950); }
+.tab.is-active{ background:#fff; color:var(--ink-950); box-shadow:0 2px 8px rgba(11,31,51,.12); }
+
+#vista-formulario .card,
+#painel-consulta > .card,
+#vista-confirmacao{
+  border-top:4px solid var(--ink-700);
+  box-shadow:0 12px 28px rgba(11,31,51,.08);
+}
+#vista-formulario h1,
+#painel-consulta h1,
+#vista-confirmacao h1{ font-size:clamp(1.75rem, 4vw, 2.35rem); }
+#vista-formulario > .card > p:first-of-type,
+#painel-consulta > .card > p:first-of-type{
+  max-width:68ch;
+  font-size:.95rem;
+}
+#vista-formulario .alert-info{
+  border-left:4px solid var(--signal);
+  background:#F5EBCF;
+  color:#5E4A1D;
+}
+
+.field{ margin-bottom:22px; }
+.field label{ color:var(--ink-950); letter-spacing:.01em; }
+.field input[type="text"],
+.field input[type="date"],
+.field input[type="file"],
+.field select,
+.field textarea{
+  border-color:#B9C9D6;
+  box-shadow:inset 0 1px 2px rgba(11,31,51,.03);
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.field input:hover,
+.field select:hover,
+.field textarea:hover{ border-color:var(--steel-600); }
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:var(--steel-600);
+  box-shadow:0 0 0 3px rgba(47,107,150,.14);
+  outline:none;
+}
+.field select{
+  appearance:none;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231B4C73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 13px center / 14px no-repeat;
+  padding-right:40px;
+}
+.field input[type="file"]{ padding:9px 10px; background:#F8FAFC; }
+.field input[type="file"]::file-selector-button{
+  border:1px solid #AFC4D3;
+  border-radius:4px;
+  background:#E5F0F7;
+  color:var(--steel-700);
+  padding:7px 11px;
+  margin-right:10px;
+  font-family:inherit;
+  font-weight:700;
   cursor:pointer;
 }
-.tab.is-active{ background:#fff; color:var(--ink-950); box-shadow:var(--shadow-card); }
+.field textarea{ min-height:150px; }
+
+#grupo-prioridade{ gap:8px; }
+#grupo-prioridade .radio-chip{ flex:1; text-align:center; min-width:92px; }
+#grupo-prioridade .radio-chip:nth-child(1):has(input:checked){ border-color:#8A9BAA; background:#EEF2F5; color:#526474; }
+#grupo-prioridade .radio-chip:nth-child(2):has(input:checked){ border-color:#C89A3C; background:#F5EBCF; color:#765A19; }
+#grupo-prioridade .radio-chip:nth-child(3):has(input:checked){ border-color:#C77B3B; background:#FCE9D8; color:#8A4D1C; }
+#grupo-prioridade .radio-chip:nth-child(4):has(input:checked){ border-color:var(--st-urgente); background:#FBEAEA; color:#8A2C2C; }
+#form-denuncia > .btn-primary{
+  min-height:50px;
+  font-size:.98rem;
+  letter-spacing:.01em;
+  box-shadow:0 6px 14px rgba(27,76,115,.18);
+}
 
 .confirmacao__icone{ margin-bottom:10px; }
 .confirmacao__icone svg{ width:52px; height:52px; margin-inline:auto; }
+#vista-confirmacao .confirmacao__icone svg circle{ stroke:var(--st-concluida); }
+#vista-confirmacao .confirmacao__icone svg path{ stroke:var(--st-concluida); }
+#vista-confirmacao > p{ max-width:54ch; margin-inline:auto; }
+#vista-confirmacao .ticket{ max-width:430px; margin:22px auto 4px; border-color:#AFC4D3; background:#F4F8FB; }
+#vista-confirmacao .ticket__codigo{ color:var(--ink-700); font-size:clamp(1.25rem, 4vw, 1.55rem); }
 
 /* --- Resultado de consulta ---
    (.consulta-meta e .linha-tempo ficam em style.css: o painel do
@@ -46,3 +142,16 @@
   padding:14px 16px;
 }
 .resposta-oficial strong{ color:var(--steel-700); display:block; margin-bottom:4px; font-size:.85rem; }
+
+#form-consulta{ background:#F4F8FB; border:1px solid #D6E2EA; border-radius:var(--radius-sm); padding:16px; }
+#form-consulta .btn{ min-height:44px; }
+#resultado-consulta > .card{ border-left:4px solid var(--steel-600); }
+
+@media (max-width:640px){
+  .page-den{ padding-top:28px; }
+  .tabs{ max-width:none; }
+  .tab{ padding-inline:9px; font-size:.8rem; }
+  #grupo-prioridade .radio-chip{ min-width:0; padding-inline:8px; }
+  #form-consulta{ flex-direction:column; align-items:stretch !important; }
+  #form-consulta .field{ width:100%; }
+}
