@@ -65,6 +65,9 @@ create policy "public can read missing photos" on storage.objects for select to 
 drop policy if exists "public can upload missing photos" on storage.objects;
 create policy "public can upload missing photos" on storage.objects for insert to anon with check (bucket_id = 'missing-photos');
 
+drop policy if exists "public can delete missing photos" on storage.objects;
+create policy "public can delete missing photos" on storage.objects for delete to anon using (bucket_id = 'missing-photos');
+
 alter table public.missing_person_messages replica identity full;
 do $$
 begin

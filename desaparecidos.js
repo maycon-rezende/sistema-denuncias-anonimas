@@ -21,12 +21,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const campoFotosEdicao = document.getElementById('edicao-fotos');
   const campoStatusEdicao = document.getElementById('edicao-status');
   const campoIdEdicao = document.getElementById('edicao-post-id');
+  const galeriaEdicao = document.getElementById('edicao-galeria');
   const feedbackEdicao = document.getElementById('feedback-edicao');
   const formChat = document.getElementById('form-chat');
   const listaChat = document.getElementById('lista-chat');
   const supabaseConfig = window.SUPABASE_CONFIG || {};
   const modoOnline = Boolean(supabaseConfig.url && supabaseConfig.anonKey && window.supabase);
   const cliente = modoOnline ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey) : null;
+  let fotosEmEdicao = [];
+  const termosBloqueadosForum = ['porn', 'sexo', 'nude', 'nudez', 'pelado', 'pelada', 'putaria', 'estupro', 'matar', 'assassinar'];
 
   function lerLista(chave) { try { return JSON.parse(localStorage.getItem(chave) || '[]'); } catch { return []; } }
   function salvarLista(chave, itens) { localStorage.setItem(chave, JSON.stringify(itens)); }
@@ -39,6 +42,27 @@ document.addEventListener('DOMContentLoaded', async () => {
   function limparFeedbackEdicao() { feedbackEdicao.textContent = ''; feedbackEdicao.className = 'mural-edicao__feedback hidden'; }
   function erroDePermissao(acao) {
     return new Error(`Não foi possível ${acao}. No Supabase, abra o SQL Editor e execute o arquivo supabase-schema.sql para liberar edição e exclusão.`);
+  }
+  function mensagemPermitidaNoForum(mensagem) {
+    const texto = mensagem.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    return !termosBloqueadosForum.some(termo => texto.includes(termo));
+  }
+  function renderizarGaleriaEdicao() {
+    galeriaEdicao.innerHTML = fotosEmEdicao.length
+      ? fotosEmEdicao.map((foto, index) => `<div class="mural-edicao__photo"><img src="${escapar(foto)}" alt="Foto ${index + 1} da publicação"><button type="button" data-remover-foto="${index}" aria-label="Remover foto ${index + 1}">Remover</button></div>`).join('')
+      : '<p class="mural-edicao__gallery-empty">Nenhuma foto selecionada. Adicione ao menos uma imagem antes de salvar.</p>';
+  }
+  function caminhoDaFotoNoStorage(url) {
+    try {
+      const marcador = '/object/public/missing-photos/';
+      const indice = url.indexOf(marcador);
+      return indice >= 0 ? decodeURIComponent(url.slice(indice + marcador.length)) : null;
+    } catch { return null; }
+  }
+  async function removerFotosDoStorage(urls) {
+    if (!modoOnline || !urls.length) return;
+    const caminhos = urls.map(caminhoDaFotoNoStorage).filter(Boolean);
+    if (caminhos.length) await cliente.storage.from('missing-photos').remove(caminhos);
   }
   function normalizarPublicacao(item) {
     const galeria = Array.isArray(item.gallery) ? item.gallery.filter(Boolean) : [];
@@ -192,6 +216,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const { data, error } = await cliente.from('missing_person_posts').update(payload).eq('id', postId).select('id');
       if (error) throw new Error(`Não foi possível atualizar o caso no Supabase: ${error.message}`);
       if (!data?.length) throw erroDePermissao('atualizar esta publicação');
+      const fotosAntigas = (itemAtual.gallery || [itemAtual.foto]).filter(Boolean);
+      await removerFotosDoStorage(fotosAntigas.filter(foto => !fotos.includes(foto)));
     } else {
       publicacoes[indice] = registroAtualizado;
       salvarLista(CHAVE_MURAL, publicacoes);
@@ -204,9 +230,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function excluirPost(postId) {
     if (modoOnline) {
+      const publicacao = (await carregarPublicacoes()).find(item => String(item.id) === String(postId));
       const { data, error } = await cliente.from('missing_person_posts').delete().eq('id', postId).select('id');
       if (error) throw new Error(`Não foi possível excluir a publicação: ${error.message}`);
       if (!data?.length) throw erroDePermissao('excluir esta publicação');
+      await removerFotosDoStorage((publicacao?.gallery || [publicacao?.foto]).filter(Boolean));
       return;
     }
 
@@ -264,6 +292,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     campoContatoEdicao.value = post.contato || '';
     campoStatusEdicao.value = post.status || 'desaparecida';
     campoFotosEdicao.value = '';
+    fotosEmEdicao = (post.gallery && post.gallery.length ? post.gallery : [post.foto]).filter(Boolean).slice(0, 4);
+    renderizarGaleriaEdicao();
     painelEdicao.classList.remove('hidden');
     painelEdicao.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -307,6 +337,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     painelEdicao.classList.add('hidden');
     formEdicao.reset();
   });
+  document.addEventListener('click', event => {
+    const botao = event.target.closest('[data-remover-foto]');
+    if (!botao) return;
+    fotosEmEdicao.splice(Number(botao.dataset.removerFoto), 1);
+    renderizarGaleriaEdicao();
+  });
   document.querySelector('[data-excluir-post]')?.addEventListener('click', async () => {
     const postId = campoIdEdicao.value;
     if (!postId) return;
@@ -331,10 +367,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     limparFeedbackEdicao();
     try {
       const arquivos = Array.from(campoFotosEdicao.files || []).filter(Boolean);
-      const fotosExistentes = (await carregarPublicacoes()).find(item => String(item.id) === String(postId));
-      const fotosAtuais = (fotosExistentes && fotosExistentes.gallery && fotosExistentes.gallery.length ? fotosExistentes.gallery : [fotosExistentes && fotosExistentes.foto].filter(Boolean));
       const novasFotos = arquivos.length ? await processarArquivos(arquivos) : [];
-      const fotosCombinadas = [...novasFotos, ...fotosAtuais].filter(Boolean).slice(0, 4);
+      const fotosCombinadas = [...novasFotos, ...fotosEmEdicao].filter(Boolean).slice(0, 4);
+      if (!fotosCombinadas.length) throw new Error('Mantenha ou adicione ao menos uma foto antes de salvar.');
       const proximoStatus = campoStatusEdicao.value || 'desaparecida';
       const dadosExtras = {
         nome: campoNomeEdicao.value.trim(),
@@ -363,6 +398,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   formChat.addEventListener('submit', async event => {
     event.preventDefault();
     const nome = document.getElementById('chat-nome').value.trim() || 'Anônimo'; const campoMensagem = document.getElementById('chat-mensagem'); const mensagem = campoMensagem.value.trim(); if (!mensagem) return;
+    if (!mensagemPermitidaNoForum(mensagem)) { listaChat.insertAdjacentHTML('afterbegin', '<p class="alert alert-error">Esta mensagem não segue as regras do fórum. Não envie conteúdo explícito, ameaças ou informações que exponham pessoas.</p>'); return; }
     try {
       if (modoOnline) { const { error } = await cliente.from('missing_person_messages').insert({ sender_name: nome, message: mensagem }); if (error) throw new Error('Não foi possível enviar a mensagem.'); }
       else { const mensagens = lerLista(CHAVE_CHAT); mensagens.push({ nome, mensagem, criadoEm: new Date().toISOString() }); salvarLista(CHAVE_CHAT, mensagens.slice(-100)); }

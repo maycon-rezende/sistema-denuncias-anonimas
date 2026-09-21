@@ -91,9 +91,10 @@
         </div>
 
         <div class="field">
-          <label for="edicao-fotos">Adicionar ou trocar fotos</label>
+          <label for="edicao-fotos">Fotos da publicação</label>
           <input id="edicao-fotos" type="file" accept="image/*" multiple>
-          <p class="hint">Você pode enviar até 4 imagens novas. A primeira será usada como capa principal.</p>
+          <p class="hint">Remova fotos abaixo ou adicione novas. A primeira imagem será usada como capa principal.</p>
+          <div id="edicao-galeria" class="mural-edicao__gallery" aria-live="polite"></div>
         </div>
 
         <div class="mural-edicao__actions">
@@ -111,8 +112,9 @@
     <p id="mural-encontrados-vazio" class="orientacao-aviso hidden">Nenhuma pessoa foi marcada como encontrada ainda.</p>
   </section>
   <section class="orientacao-section" id="chat-comunitario" aria-labelledby="titulo-chat">
-    <div class="orientacao-section__heading"><p class="orientacao-kicker">Comunidade</p><h2 id="titulo-chat">Chat de informações</h2><p>Use este espaço para compartilhar uma informação objetiva. Não publique acusações, dados sensíveis ou localização em tempo real.</p></div>
-    <div class="chat-box"><div id="lista-chat" class="chat-lista" aria-live="polite"></div><form id="form-chat" class="chat-form"><input id="chat-nome" type="text" maxlength="40" placeholder="Seu nome ou 'anônimo'"><input id="chat-mensagem" required maxlength="500" type="text" placeholder="Você viu algo? Compartilhe uma informação objetiva"><button class="btn btn-primary" type="submit">Enviar</button></form></div>
+    <div class="orientacao-section__heading"><p class="orientacao-kicker">Comunidade</p><h2 id="titulo-chat">Fórum de informações</h2><p>Troque informações objetivas para ajudar nas buscas. Não publique acusações, conteúdo explícito, dados pessoais, localização em tempo real ou informações sem confirmação.</p></div>
+    <div class="forum-regras"><strong>Regras do fórum</strong><span>Use linguagem respeitosa, não exponha pessoas e acione o 190 em situação de risco. Mensagens com termos impróprios são bloqueadas antes do envio.</span></div>
+    <div class="chat-box"><div id="lista-chat" class="chat-lista" aria-live="polite"></div><form id="form-chat" class="chat-form"><input id="chat-nome" type="text" maxlength="40" placeholder="Seu nome ou 'anônimo'"><input id="chat-mensagem" required maxlength="500" type="text" placeholder="Compartilhe uma informação objetiva"><button class="btn btn-primary" type="submit">Enviar</button></form></div>
   </section>
   <section class="orientacao-section"><div class="orientacao-aviso"><strong>Atenção:</strong> não publique endereço, telefone, documentos ou outros dados pessoais sem orientação. Em emergência, ligue para o 190. Para informações nacionais, consulte o portal oficial do Ministério da Justiça.</div></section>
 </main>
