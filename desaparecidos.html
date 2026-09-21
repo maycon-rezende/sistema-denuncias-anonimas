@@ -35,8 +35,8 @@
         <div class="field"><label for="desaparecido-foto">Foto recente</label><input id="desaparecido-foto" required type="file" accept="image/*"><p class="hint">Imagem de até 5 MB. Quando online, a foto é enviada para o armazenamento do Supabase; quando offline, fica salva apenas neste navegador.</p></div>
         <div id="erro-mural" class="alert alert-error hidden" role="alert"></div><button class="btn btn-primary btn-block" type="submit">Publicar no mural</button>
       </form>
-      <div>
-        <div class="mural-toolbar"><h3>Publicações recentes</h3><label class="sr-only" for="busca-mural">Buscar no mural</label><input id="busca-mural" type="search" placeholder="Buscar nome ou cidade"></div>
+      <div class="mural-painel">
+        <div class="mural-toolbar"><div><p class="mural-toolbar__eyebrow">Acompanhamento</p><h3>Publicações recentes</h3></div><label class="sr-only" for="busca-mural">Buscar no mural</label><input id="busca-mural" type="search" placeholder="Buscar nome ou cidade"></div>
         <div id="lista-desaparecidos" class="mural-lista"></div>
         <p id="mural-vazio" class="orientacao-aviso hidden">Nenhuma publicação encontrada.</p>
       </div>
@@ -100,6 +100,7 @@
           <button class="btn btn-primary" type="submit">Salvar alterações</button>
           <button class="btn btn-ghost mural-edicao__delete" type="button" data-excluir-post>Excluir publicação</button>
         </div>
+        <p id="feedback-edicao" class="mural-edicao__feedback hidden" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>

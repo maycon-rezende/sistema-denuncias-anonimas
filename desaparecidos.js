@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const campoFotosEdicao = document.getElementById('edicao-fotos');
   const campoStatusEdicao = document.getElementById('edicao-status');
   const campoIdEdicao = document.getElementById('edicao-post-id');
+  const feedbackEdicao = document.getElementById('feedback-edicao');
   const formChat = document.getElementById('form-chat');
   const listaChat = document.getElementById('lista-chat');
   const supabaseConfig = window.SUPABASE_CONFIG || {};
@@ -31,6 +32,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   function salvarLista(chave, itens) { localStorage.setItem(chave, JSON.stringify(itens)); }
   function escapar(texto) { const div = document.createElement('div'); div.textContent = texto ?? ''; return div.innerHTML; }
   function formatarData(iso) { return new Date(iso).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }); }
+  function exibirFeedbackEdicao(mensagem, tipo = 'sucesso') {
+    feedbackEdicao.textContent = mensagem;
+    feedbackEdicao.className = `mural-edicao__feedback mural-edicao__feedback--${tipo}`;
+  }
+  function limparFeedbackEdicao() { feedbackEdicao.textContent = ''; feedbackEdicao.className = 'mural-edicao__feedback hidden'; }
+  function erroDePermissao(acao) {
+    return new Error(`Não foi possível ${acao}: o Supabase não autorizou a alteração. Execute novamente o arquivo supabase-schema.sql no SQL Editor para ativar as permissões de edição e exclusão.`);
+  }
   function normalizarPublicacao(item) {
     const galeria = Array.isArray(item.gallery) ? item.gallery.filter(Boolean) : [];
     const fotoPrincipal = item.photo_url || item.foto || galeria[0] || '';
@@ -109,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const statusTexto = publicacao.status === 'encontrada' ? 'Encontrado' : 'Desaparecido';
     const badgeClass = publicacao.status === 'encontrada' ? 'mural-badge mural-badge--found' : 'mural-badge';
     const detalhesExtras = fotos.length > 1 ? `<div class="mural-card__gallery">${fotos.slice(0, 3).map(foto => `<img src="${escapar(foto)}" alt="Foto adicional de ${escapar(publicacao.nome)}">`).join('')}</div>` : '';
-    return `<article class="mural-card mural-card--enter">${principal ? `<img src="${escapar(principal)}" alt="Foto de ${escapar(publicacao.nome)}">` : '<div class="mural-card__sem-foto">Sem foto</div>'}<div class="mural-card__body"><div class="mural-card__top"><h3>${escapar(publicacao.nome)}</h3><span>${escapar(publicacao.cidade)}</span></div><div class="mural-card__badges"><span class="${badgeClass}">${statusTexto}</span></div><p><strong>Último contato:</strong> ${escapar(publicacao.ultimoContato)}</p><p>${escapar(publicacao.caracteristicas)}</p><div class="mural-card__contact"><strong>Informações:</strong> ${escapar(publicacao.contato)}</div>${detalhesExtras}<div class="mural-card__actions">${modoCompacto ? '' : `<button type="button" class="mural-card__action" data-action="editar" data-id="${publicacao.id}">Editar dados</button><button type="button" class="mural-card__action mural-card__action--secondary" data-action="encontrado" data-id="${publicacao.id}">Marcar encontrado</button><button type="button" class="mural-card__action" data-action="excluir" data-id="${publicacao.id}">Excluir</button>`}</div><small>Publicado em ${formatarData(publicacao.criadoEm)}</small></div></article>`;
+    return `<article class="mural-card mural-card--enter">${principal ? `<img src="${escapar(principal)}" alt="Foto de ${escapar(publicacao.nome)}">` : '<div class="mural-card__sem-foto">Sem foto</div>'}<div class="mural-card__body"><div class="mural-card__top"><div><p class="mural-card__label">Pessoa ${publicacao.status === 'encontrada' ? 'localizada' : 'desaparecida'}</p><h3>${escapar(publicacao.nome)}</h3></div><span class="mural-card__location">${escapar(publicacao.cidade)}</span></div><div class="mural-card__badges"><span class="${badgeClass}">${statusTexto}</span>${publicacao.idade ? `<span class="mural-badge mural-badge--neutral">${escapar(publicacao.idade)}</span>` : ''}</div><div class="mural-card__facts"><p><strong>Último contato</strong><span>${escapar(publicacao.ultimoContato)}</span></p><p><strong>Características</strong><span>${escapar(publicacao.caracteristicas)}</span></p></div><div class="mural-card__contact"><strong>Canal autorizado</strong><span>${escapar(publicacao.contato)}</span></div>${detalhesExtras}<div class="mural-card__actions">${modoCompacto ? '' : `<button type="button" class="mural-card__action" data-action="editar" data-id="${publicacao.id}">Editar dados</button><button type="button" class="mural-card__action mural-card__action--secondary" data-action="encontrado" data-id="${publicacao.id}">Marcar encontrada</button><button type="button" class="mural-card__action mural-card__action--danger" data-action="excluir" data-id="${publicacao.id}">Excluir</button>`}</div><small>Publicado em ${formatarData(publicacao.criadoEm)}</small></div></article>`;
   }
   async function renderizarMural() {
     const termo = buscaMural.value.trim().toLowerCase();
@@ -180,8 +189,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         gallery: fotos.slice(0, 4),
         status
       };
-      const { error } = await cliente.from('missing_person_posts').update(payload).eq('id', postId);
+      const { data, error } = await cliente.from('missing_person_posts').update(payload).eq('id', postId).select('id');
       if (error) throw new Error(`Não foi possível atualizar o caso no Supabase: ${error.message}`);
+      if (!data?.length) throw erroDePermissao('atualizar esta publicação');
     } else {
       publicacoes[indice] = registroAtualizado;
       salvarLista(CHAVE_MURAL, publicacoes);
@@ -194,8 +204,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function excluirPost(postId) {
     if (modoOnline) {
-      const { error } = await cliente.from('missing_person_posts').delete().eq('id', postId);
+      const { data, error } = await cliente.from('missing_person_posts').delete().eq('id', postId).select('id');
       if (error) throw new Error(`Não foi possível excluir a publicação: ${error.message}`);
+      if (!data?.length) throw erroDePermissao('excluir esta publicação');
       return;
     }
 
@@ -243,6 +254,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   function abrirEditor(post) {
+    limparFeedbackEdicao();
     campoIdEdicao.value = post.id;
     campoNomeEdicao.value = post.nome || '';
     campoIdadeEdicao.value = post.idade || '';
@@ -302,6 +314,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!confirmar) return;
     try {
       await excluirPost(postId);
+      exibirFeedbackEdicao('Publicação excluída com sucesso.');
       formEdicao.reset();
       painelEdicao.classList.add('hidden');
       await renderizarMural();
@@ -315,6 +328,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     event.preventDefault();
     const postId = campoIdEdicao.value;
     if (!postId) return;
+    limparFeedbackEdicao();
     try {
       const arquivos = Array.from(campoFotosEdicao.files || []).filter(Boolean);
       const fotosExistentes = (await carregarPublicacoes()).find(item => String(item.id) === String(postId));
@@ -337,6 +351,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         contact: campoContatoEdicao.value.trim()
       };
       await atualizarPost(postId, proximoStatus, fotosCombinadas, dadosExtras);
+      exibirFeedbackEdicao('Alterações salvas com sucesso.');
       formEdicao.reset();
       painelEdicao.classList.add('hidden');
     } catch (error) {

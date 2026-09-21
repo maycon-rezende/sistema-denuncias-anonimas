@@ -1,5 +1,6 @@
--- Execute no SQL Editor do Supabase.
--- Este esquema atende ao mural e ao chat do prototipo.
+-- Execute este arquivo no SQL Editor do Supabase.
+-- O acesso anonimo permite o prototipo funcionar sem cadastro;
+-- para producao, adicione autenticacao, moderacao e rate limit.
 
 create extension if not exists pgcrypto;
 
@@ -12,6 +13,8 @@ create table if not exists public.missing_person_posts (
   characteristics text not null check (char_length(characteristics) between 20 and 2000),
   contact text not null check (char_length(contact) between 5 and 80),
   photo_url text not null,
+  gallery text[] not null default '{}',
+  status text not null default 'desaparecida' check (status in ('desaparecida', 'encontrada')),
   created_at timestamptz not null default now()
 );
 
@@ -31,23 +34,38 @@ alter table public.missing_person_posts add constraint missing_person_posts_stat
 alter table public.missing_person_posts enable row level security;
 alter table public.missing_person_messages enable row level security;
 
-grant select, insert on public.missing_person_posts to anon;
+grant select, insert, update, delete on public.missing_person_posts to anon;
 grant select, insert on public.missing_person_messages to anon;
 
+drop policy if exists "public can read missing posts" on public.missing_person_posts;
 create policy "public can read missing posts" on public.missing_person_posts for select to anon using (true);
+
+drop policy if exists "public can publish missing posts" on public.missing_person_posts;
 create policy "public can publish missing posts" on public.missing_person_posts for insert to anon with check (true);
+
+drop policy if exists "public can update missing posts" on public.missing_person_posts;
+create policy "public can update missing posts" on public.missing_person_posts for update to anon using (true) with check (true);
+
+drop policy if exists "public can delete missing posts" on public.missing_person_posts;
+create policy "public can delete missing posts" on public.missing_person_posts for delete to anon using (true);
+
+drop policy if exists "public can read chat messages" on public.missing_person_messages;
 create policy "public can read chat messages" on public.missing_person_messages for select to anon using (true);
+
+drop policy if exists "public can send chat messages" on public.missing_person_messages;
 create policy "public can send chat messages" on public.missing_person_messages for insert to anon with check (true);
 
 insert into storage.buckets (id, name, public)
 values ('missing-photos', 'missing-photos', true)
 on conflict (id) do update set public = true;
 
+drop policy if exists "public can read missing photos" on storage.objects;
 create policy "public can read missing photos" on storage.objects for select to anon using (bucket_id = 'missing-photos');
+
+drop policy if exists "public can upload missing photos" on storage.objects;
 create policy "public can upload missing photos" on storage.objects for insert to anon with check (bucket_id = 'missing-photos');
 
 alter table public.missing_person_messages replica identity full;
-
 do $$
 begin
   if not exists (
