@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mural de buscas · Sistema de Denúncias</title>
+<meta name="description" content="Mural comunitário de pessoas desaparecidas, informações e casos encontrados.">
+<meta name="theme-color" content="#102E45">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="orientacoes.css">
+<link rel="stylesheet" href="assistente.css">
+</head>
+<body class="pagina-desaparecidos pagina-mural">
+<div class="mural-aurora" aria-hidden="true"></div>
+<header class="top-bar"><div class="container top-bar__inner">
+  <a class="brand" href="index.html" aria-label="Voltar para a página inicial"><span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 4 5.5V11c0 5.2 3.4 9.7 8 11 4.6-1.3 8-5.8 8-11V5.5L12 2Z" stroke="#EAF0F7" stroke-width="1.6"/><path d="m9 12 2 2 4-4" stroke="#EAF0F7" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="brand__text">Sistema de Denúncias Anônimas<small>Mural de buscas</small></span></a>
+  <button class="menu-mobile-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  <nav class="top-nav" id="menu-principal" aria-label="Navegação principal"><a href="index.html">Início</a><a href="desaparecidos.html">Orientações</a><a href="#chat-comunitario">Fórum</a></nav>
+</div></header>
+<main class="container page-orientacao mural-page">
+  <section class="mural-page__hero"><div><p class="orientacao-kicker">Rede de apoio comunitária</p><h1>Informação que ajuda a encontrar.</h1><p>Consulte alertas ativos, compartilhe apenas dados confirmados e ajude a manter cada busca atualizada.</p></div><a class="btn btn-primary" href="desaparecidos.html#publicar-alerta">+ Publicar novo alerta</a></section>
+  <nav class="desaparecidos-subnav" aria-label="Navegação do mural"><a href="#mural-buscas">Buscas ativas</a><a href="#pessoas-encontradas">Pessoas encontradas</a><a href="#chat-comunitario">Fórum</a><a href="desaparecidos.html#publicar-alerta">Publicar alerta</a></nav>
+  <section class="mural-board mural-page__board" id="mural-buscas" aria-labelledby="titulo-buscas">
+    <div class="mural-board__heading"><div><p class="orientacao-kicker">Mural de buscas</p><h2 id="titulo-buscas">Pessoas que precisam ser encontradas</h2><p>Cada cartão reúne foto, identificação, último contato e um canal autorizado para novas informações.</p></div><a class="btn btn-ghost" href="desaparecidos.html#publicar-alerta">+ Novo alerta</a></div>
+    <div class="mural-toolbar mural-toolbar--board"><div><p class="mural-toolbar__eyebrow">Casos ativos</p><h3>Alertas publicados</h3></div><div class="mural-toolbar__controls"><button id="mostrar-minhas-publicacoes" class="mural-filter" type="button" aria-pressed="false">Minhas publicações</button><label class="sr-only" for="busca-mural">Buscar no mural</label><input id="busca-mural" type="search" placeholder="Buscar nome ou cidade"></div></div>
+    <div id="lista-desaparecidos" class="mural-lista mural-lista--board"></div><p id="mural-vazio" class="orientacao-aviso hidden">Nenhuma publicação encontrada.</p>
+  </section>
+  <section class="mural-board mural-board--found mural-page__board" id="pessoas-encontradas" aria-labelledby="titulo-encontrados">
+    <div class="mural-board__heading"><div><p class="orientacao-kicker">Casos encerrados</p><h2 id="titulo-encontrados">Pessoas encontradas</h2><p>Registros atualizados para que a comunidade saiba quais buscas foram encerradas.</p></div></div>
+    <div id="lista-encontrados" class="mural-lista mural-lista--compact"></div><p id="mural-encontrados-vazio" class="orientacao-aviso hidden">Nenhuma pessoa foi marcada como encontrada ainda.</p>
+  </section>
+  <section class="mural-board mural-board--forum mural-page__board" id="chat-comunitario" aria-labelledby="titulo-chat">
+    <div class="orientacao-section__heading"><p class="orientacao-kicker">Comunidade</p><h2 id="titulo-chat">Fórum de informações</h2><p>Compartilhe somente informações objetivas e confirmadas. Em emergência, ligue 190.</p></div><div class="forum-regras"><strong>Regras do fórum</strong><span>Não publique acusações, conteúdo explícito, dados pessoais ou localização em tempo real.</span></div>
+    <div class="chat-box"><div id="lista-chat" class="chat-lista" aria-live="polite"></div><form id="form-chat" class="chat-form"><input id="chat-nome" type="text" maxlength="40" placeholder="Seu nome ou 'anônimo'"><input id="chat-mensagem" required maxlength="500" type="text" placeholder="Compartilhe uma informação objetiva"><button class="btn btn-primary" type="submit">Enviar</button></form></div>
+  </section>
+  <section id="painel-edicao" class="mural-edicao hidden" aria-live="polite"><div class="mural-edicao__header"><h3>Editar publicação</h3><button type="button" class="mural-edicao__close" data-fechar-edicao>Fechar</button></div><form id="form-edicao-post" class="mural-edicao__form"><input id="edicao-post-id" type="hidden"><div class="field field--full"><label for="edicao-nome">Nome da pessoa</label><input id="edicao-nome" type="text"></div><div class="field-row"><div class="field"><label for="edicao-idade">Idade</label><input id="edicao-idade" type="text"></div><div class="field"><label for="edicao-cidade">Cidade/UF</label><input id="edicao-cidade" type="text"></div></div><div class="field"><label for="edicao-ultimo-contato">Último contato</label><input id="edicao-ultimo-contato" type="text"></div><div class="field"><label for="edicao-caracteristicas">Características e roupas</label><textarea id="edicao-caracteristicas" minlength="20"></textarea></div><div class="field-row"><div class="field"><label for="edicao-contato">Contato</label><input id="edicao-contato" type="tel"></div><div class="field"><label for="edicao-status">Status</label><select id="edicao-status"><option value="desaparecida">Desaparecida</option><option value="encontrada">Encontrada</option></select></div></div><div class="field"><label for="edicao-fotos">Fotos da publicação</label><input id="edicao-fotos" type="file" accept="image/*" multiple><p class="hint">Remova fotos abaixo ou adicione novas. A primeira imagem será a capa.</p><div id="edicao-galeria" class="mural-edicao__gallery" aria-live="polite"></div></div><div class="mural-edicao__actions"><button class="btn btn-primary" type="submit">Salvar alterações</button><button class="btn btn-ghost mural-edicao__delete" type="button" data-excluir-post>Excluir publicação</button></div><p id="feedback-edicao" class="mural-edicao__feedback hidden" role="status" aria-live="polite"></p></form></section>
+  <form id="form-desaparecido" class="mural-form--template" aria-hidden="true"><input id="desaparecido-foto" type="file"><span id="mural-fotos-status"></span><div id="erro-mural"></div><input id="desaparecido-nome"><input id="desaparecido-idade"><input id="desaparecido-cidade"><input id="desaparecido-data"><textarea id="desaparecido-caracteristicas"></textarea><input id="desaparecido-contato"></form>
+</main>
+<footer class="site-footer"><div class="container site-footer__inner"><span>Sistema de Denúncias Anônimas · Protótipo acadêmico</span><nav aria-label="Links do rodapé"><a href="index.html">Início</a><a href="desaparecidos.html">Orientações</a></nav></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="desaparecidos.js"></script><script src="navegacao.js"></script><script src="assistente.js"></script>
+</body></html>

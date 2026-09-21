@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
   const CHAVE_MURAL = 'sdac_mural_desaparecidos_v1';
   const CHAVE_CHAT = 'sdac_chat_desaparecidos_v1';
+  const CHAVE_MINHAS_PUBLICACOES = 'sdac_minhas_publicacoes_v1';
   const LIMITE_IMAGEM = 5 * 1024 * 1024;
   const formMural = document.getElementById('form-desaparecido');
   const erroMural = document.getElementById('erro-mural');
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const listaEncontrados = document.getElementById('lista-encontrados');
   const muralEncontradosVazio = document.getElementById('mural-encontrados-vazio');
   const buscaMural = document.getElementById('busca-mural');
+  const botaoMinhasPublicacoes = document.getElementById('mostrar-minhas-publicacoes');
   const formEdicao = document.getElementById('form-edicao-post');
   const painelEdicao = document.getElementById('painel-edicao');
   const campoNomeEdicao = document.getElementById('edicao-nome');
@@ -30,10 +32,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   const modoOnline = Boolean(supabaseConfig.url && supabaseConfig.anonKey && window.supabase);
   const cliente = modoOnline ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey) : null;
   let fotosEmEdicao = [];
+  let mostrarSomenteMinhas = false;
   const termosBloqueadosForum = ['porn', 'sexo', 'nude', 'nudez', 'pelado', 'pelada', 'putaria', 'estupro', 'matar', 'assassinar'];
 
   function lerLista(chave) { try { return JSON.parse(localStorage.getItem(chave) || '[]'); } catch { return []; } }
   function salvarLista(chave, itens) { localStorage.setItem(chave, JSON.stringify(itens)); }
+  function minhasPublicacoes() { return new Set(lerLista(CHAVE_MINHAS_PUBLICACOES).map(String)); }
+  function registrarMinhaPublicacao(id) {
+    const ids = [...new Set([...lerLista(CHAVE_MINHAS_PUBLICACOES).map(String), String(id)])];
+    salvarLista(CHAVE_MINHAS_PUBLICACOES, ids);
+  }
   function escapar(texto) { const div = document.createElement('div'); div.textContent = texto ?? ''; return div.innerHTML; }
   function formatarData(iso) { return new Date(iso).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }); }
   function exibirFeedbackEdicao(mensagem, tipo = 'sucesso') {
@@ -150,9 +158,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `<article class="mural-card mural-card--enter">${principal ? `<img src="${escapar(principal)}" alt="Foto de ${escapar(publicacao.nome)}">` : '<div class="mural-card__sem-foto">Sem foto</div>'}<div class="mural-card__body"><div class="mural-card__top"><div><p class="mural-card__label">Pessoa ${publicacao.status === 'encontrada' ? 'localizada' : 'desaparecida'}</p><h3>${escapar(publicacao.nome)}</h3></div><span class="mural-card__location">${escapar(publicacao.cidade)}</span></div><div class="mural-card__badges"><span class="${badgeClass}">${statusTexto}</span>${publicacao.idade ? `<span class="mural-badge mural-badge--neutral">${escapar(publicacao.idade)}</span>` : ''}</div><div class="mural-card__facts"><p><strong>Último contato</strong><span>${escapar(publicacao.ultimoContato)}</span></p><p><strong>Características</strong><span>${escapar(publicacao.caracteristicas)}</span></p></div><div class="mural-card__contact"><strong>Canal autorizado</strong><span>${escapar(publicacao.contato)}</span></div>${detalhesExtras}<div class="mural-card__actions">${modoCompacto ? '' : `<button type="button" class="mural-card__action" data-action="editar" data-id="${publicacao.id}">Editar dados</button><button type="button" class="mural-card__action mural-card__action--secondary" data-action="encontrado" data-id="${publicacao.id}">Marcar encontrada</button><button type="button" class="mural-card__action mural-card__action--danger" data-action="excluir" data-id="${publicacao.id}">Excluir</button>`}</div><small>Publicado em ${formatarData(publicacao.criadoEm)}</small></div></article>`;
   }
   async function renderizarMural() {
-    const termo = buscaMural.value.trim().toLowerCase();
+    if (!listaMural || !muralVazio) return;
+    const termo = buscaMural?.value.trim().toLowerCase() || '';
     try {
-      const publicacoes = (await carregarPublicacoes()).filter(item => item.status !== 'encontrada' && `${item.nome} ${item.cidade}`.toLowerCase().includes(termo));
+      const meusIds = minhasPublicacoes();
+      const publicacoes = (await carregarPublicacoes()).filter(item => item.status !== 'encontrada' && `${item.nome} ${item.cidade}`.toLowerCase().includes(termo) && (!mostrarSomenteMinhas || meusIds.has(String(item.id))));
       muralVazio.classList.toggle('hidden', publicacoes.length > 0);
       listaMural.innerHTML = publicacoes.length ? publicacoes.map(item => renderizarCard(item, false)).join('') : '';
       listaMural.querySelectorAll('.mural-card--enter').forEach((card, index) => {
@@ -161,6 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) { muralVazio.textContent = error.message; muralVazio.classList.remove('hidden'); }
   }
   async function renderizarEncontrados() {
+    if (!listaEncontrados || !muralEncontradosVazio) return;
     try {
       const publicacoes = (await carregarPublicacoes()).filter(item => item.status === 'encontrada');
       muralEncontradosVazio.classList.toggle('hidden', publicacoes.length > 0);
@@ -171,6 +182,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) { muralEncontradosVazio.textContent = error.message; muralEncontradosVazio.classList.remove('hidden'); }
   }
   async function renderizarChat() {
+    if (!listaChat) return;
     try {
       const mensagens = (await carregarMensagens()).slice(-40);
       listaChat.innerHTML = mensagens.length ? mensagens.map(item => `<div class="chat-message"><div><strong>${escapar(item.nome || 'Anônimo')}</strong><small>${formatarData(item.criadoEm)}</small></div><p>${escapar(item.mensagem)}</p></div>`).join('') : '<p class="muted">Ainda não há mensagens. Compartilhe apenas informações confirmadas.</p>';
@@ -283,7 +295,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         publicacoes.unshift(normalizarPublicacao(item));
         salvarLista(CHAVE_MURAL, publicacoes);
       }
+      registrarMinhaPublicacao(item.id);
       formMural.reset(); atualizarStatusFotosMural(); await renderizarMural(); await renderizarEncontrados();
+      if (document.body.classList.contains('pagina-desaparecidos') && !document.body.classList.contains('pagina-mural')) window.location.href = 'mural.html#mural-buscas';
     } catch (error) { erroMural.textContent = error.message || error; erroMural.classList.remove('hidden'); }
   });
 
@@ -402,8 +416,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
   campoFoto.addEventListener('change', atualizarStatusFotosMural);
-  buscaMural.addEventListener('input', renderizarMural);
-  formChat.addEventListener('submit', async event => {
+  botaoMinhasPublicacoes?.addEventListener('click', async () => {
+    mostrarSomenteMinhas = !mostrarSomenteMinhas;
+    botaoMinhasPublicacoes.setAttribute('aria-pressed', String(mostrarSomenteMinhas));
+    botaoMinhasPublicacoes.textContent = mostrarSomenteMinhas ? 'Ver todas as publicações' : 'Minhas publicações';
+    await renderizarMural();
+  });
+  buscaMural?.addEventListener('input', renderizarMural);
+  formChat?.addEventListener('submit', async event => {
     event.preventDefault();
     const nome = document.getElementById('chat-nome').value.trim() || 'Anônimo'; const campoMensagem = document.getElementById('chat-mensagem'); const mensagem = campoMensagem.value.trim(); if (!mensagem) return;
     if (!mensagemPermitidaNoForum(mensagem)) { listaChat.insertAdjacentHTML('afterbegin', '<p class="alert alert-error">Esta mensagem não segue as regras do fórum. Não envie conteúdo explícito, ameaças ou informações que exponham pessoas.</p>'); return; }
@@ -413,7 +433,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       campoMensagem.value = ''; await renderizarChat();
     } catch (error) { listaChat.insertAdjacentHTML('afterbegin', `<p class="alert alert-error">${escapar(error.message)}</p>`); }
   });
-  if (modoOnline) cliente.channel('missing-chat').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'missing_person_messages' }, renderizarChat).subscribe();
+  if (modoOnline && listaChat) cliente.channel('missing-chat').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'missing_person_messages' }, renderizarChat).subscribe();
+  if (document.body.classList.contains('pagina-mural')) document.addEventListener('pointermove', event => {
+    document.body.style.setProperty('--mural-pointer-x', `${(event.clientX / window.innerWidth) * 100}%`);
+    document.body.style.setProperty('--mural-pointer-y', `${(event.clientY / window.innerHeight) * 100}%`);
+  }, { passive: true });
   await renderizarMural();
   await renderizarEncontrados();
   await renderizarChat();
