@@ -22,9 +22,10 @@
   <div class="orientacao-grid"><article class="orientacao-card orientacao-card--urgent"><h2>Comunique imediatamente</h2><p>Em risco ou situação em andamento, ligue para o 190. Para registrar o desaparecimento, procure a Polícia Civil.</p></article><article class="orientacao-card"><h2>Leve informações úteis</h2><p>Tenha uma foto recente, nome completo, características, roupas, local e horário do último contato.</p></article><article class="orientacao-card"><h2>Atualize a ocorrência</h2><p>Avise a autoridade responsável assim que houver qualquer notícia, mesmo que pareça pequena.</p></article></div>
   <section class="orientacao-section" aria-labelledby="procedimentos"><div class="orientacao-section__heading"><p class="orientacao-kicker">Procedimento recomendado</p><h2 id="procedimentos">O que fazer agora</h2></div><div class="orientacao-two-col"><div class="orientacao-passo"><span class="orientacao-passo__numero">01</span><div><h3>Confirme as últimas informações</h3><p>Verifique mensagens, locais conhecidos e contatos recentes sem apagar possíveis evidências.</p></div></div><div class="orientacao-passo"><span class="orientacao-passo__numero">02</span><div><h3>Registre o desaparecimento</h3><p>Procure a Polícia Civil ou delegacia mais próxima com uma foto recente e os dados disponíveis.</p></div></div><div class="orientacao-passo"><span class="orientacao-passo__numero">03</span><div><h3>Compartilhe com responsabilidade</h3><p>Use informações confirmadas, preserve dados sensíveis e siga as orientações da autoridade.</p></div></div><div class="orientacao-passo"><span class="orientacao-passo__numero">04</span><div><h3>Comunique qualquer novidade</h3><p>Uma localização, ligação ou mensagem pode ser importante para atualizar a busca.</p></div></div></div></section>
   <section class="orientacao-section" aria-labelledby="acompanhamento"><div class="orientacao-section__heading"><p class="orientacao-kicker">Acompanhamento e fórum informativo</p><h2 id="acompanhamento">Como a busca pode avançar</h2><p>Este espaço organiza perguntas comuns. No protótipo, ele é informativo: não recebe relatos nem substitui o protocolo oficial da ocorrência.</p></div><div class="orientacao-forum"><div class="orientacao-forum__item"><strong>Onde acompanho o caso?</strong><span>Com o número do boletim ou protocolo, peça atualizações à unidade policial responsável pela investigação.</span></div><div class="orientacao-forum__item"><strong>Posso divulgar a foto?</strong><span>Confirme com a família e com a autoridade responsável quais informações podem ser divulgadas com segurança.</span></div><div class="orientacao-forum__item"><strong>Quando a pessoa for encontrada?</strong><span>Avise imediatamente a autoridade que registrou o caso para que os sistemas e alertas sejam atualizados.</span></div><div class="orientacao-forum__item"><strong>Existe uma busca pública integrada?</strong><span>Consulte o portal oficial do Ministério da Justiça e os canais da Polícia Civil do seu estado.</span></div></div></section>
-  <section class="orientacao-section" id="mural-desaparecidos" aria-labelledby="titulo-mural">
+  <nav class="desaparecidos-subnav" aria-label="Navegação do mural"><a href="#publicar-alerta">Publicar alerta</a><a href="#mural-buscas">Mural de buscas</a><a href="#pessoas-encontradas">Pessoas encontradas</a><a href="#chat-comunitario">Fórum</a></nav>
+  <section class="orientacao-section" id="publicar-alerta" aria-labelledby="titulo-mural">
     <div class="orientacao-section__heading"><p class="orientacao-kicker">Mural comunitário</p><h2 id="titulo-mural">Divulgar uma pessoa desaparecida</h2><p>Publique somente com autorização da família ou do responsável pelo caso. Informe o número do boletim quando puder.</p></div>
-    <div class="mural-layout">
+    <div class="mural-layout mural-layout--single">
       <form class="orientacao-card mural-form" id="form-desaparecido">
         <div class="mural-form__hero"><div><p class="mural-form__eyebrow">Nova mobilização</p><h3>Monte um alerta completo</h3><p>Informações claras e uma foto recente ajudam a comunidade a reconhecer a pessoa.</p></div><span class="mural-form__seal" aria-hidden="true">01—03</span></div>
         <ol class="mural-form__steps" aria-label="Etapas da publicação"><li class="is-active"><span>1</span>Identificação</li><li><span>2</span>Último contato</li><li><span>3</span>Foto e contato</li></ol>
@@ -42,11 +43,6 @@
         </fieldset>
         <div id="erro-mural" class="alert alert-error hidden" role="alert"></div><button class="btn btn-primary btn-block mural-form__submit" type="submit"><span>Publicar alerta no mural</span><span aria-hidden="true">→</span></button><p class="mural-form__privacy">Ao publicar, você confirma que possui autorização para compartilhar estas informações.</p>
       </form>
-      <div class="mural-painel">
-        <div class="mural-toolbar"><div><p class="mural-toolbar__eyebrow">Acompanhamento</p><h3>Publicações recentes</h3></div><label class="sr-only" for="busca-mural">Buscar no mural</label><input id="busca-mural" type="search" placeholder="Buscar nome ou cidade"></div>
-        <div id="lista-desaparecidos" class="mural-lista"></div>
-        <p id="mural-vazio" class="orientacao-aviso hidden">Nenhuma publicação encontrada.</p>
-      </div>
     </div>
 
     <div id="painel-edicao" class="mural-edicao hidden" aria-live="polite">
@@ -113,12 +109,19 @@
     </div>
   </section>
 
-  <section class="orientacao-section" aria-labelledby="titulo-encontrados">
-    <div class="orientacao-section__heading"><p class="orientacao-kicker">Casos encerrados</p><h2 id="titulo-encontrados">Pessoas encontradas</h2><p>Quando um caso for confirmado, o registro pode ser marcado como encontrado e continuar visível para a comunidade com o status atualizado.</p></div>
+  <section class="orientacao-section mural-board" id="mural-buscas" aria-labelledby="titulo-buscas">
+    <div class="mural-board__heading"><div><p class="orientacao-kicker">Mural de buscas</p><h2 id="titulo-buscas">Pessoas que precisam ser encontradas</h2><p>Cada alerta reúne foto, dados de identificação, último contato e um canal autorizado para informações.</p></div><a class="btn btn-ghost" href="#publicar-alerta">+ Novo alerta</a></div>
+    <div class="mural-toolbar"><div><p class="mural-toolbar__eyebrow">Casos ativos</p><h3>Alertas publicados</h3></div><label class="sr-only" for="busca-mural">Buscar no mural</label><input id="busca-mural" type="search" placeholder="Buscar nome ou cidade"></div>
+    <div id="lista-desaparecidos" class="mural-lista mural-lista--board"></div>
+    <p id="mural-vazio" class="orientacao-aviso hidden">Nenhuma publicação encontrada.</p>
+  </section>
+
+  <section class="orientacao-section mural-board mural-board--found" id="pessoas-encontradas" aria-labelledby="titulo-encontrados">
+    <div class="mural-board__heading"><div><p class="orientacao-kicker">Casos encerrados</p><h2 id="titulo-encontrados">Pessoas encontradas</h2><p>Quando um caso for confirmado, o registro permanece visível com o status atualizado para orientar a comunidade.</p></div><a class="btn btn-ghost" href="#mural-buscas">Ver buscas ativas</a></div>
     <div id="lista-encontrados" class="mural-lista mural-lista--compact"></div>
     <p id="mural-encontrados-vazio" class="orientacao-aviso hidden">Nenhuma pessoa foi marcada como encontrada ainda.</p>
   </section>
-  <section class="orientacao-section" id="chat-comunitario" aria-labelledby="titulo-chat">
+  <section class="orientacao-section mural-board mural-board--forum" id="chat-comunitario" aria-labelledby="titulo-chat">
     <div class="orientacao-section__heading"><p class="orientacao-kicker">Comunidade</p><h2 id="titulo-chat">Fórum de informações</h2><p>Troque informações objetivas para ajudar nas buscas. Não publique acusações, conteúdo explícito, dados pessoais, localização em tempo real ou informações sem confirmação.</p></div>
     <div class="forum-regras"><strong>Regras do fórum</strong><span>Use linguagem respeitosa, não exponha pessoas e acione o 190 em situação de risco. Mensagens com termos impróprios são bloqueadas antes do envio.</span></div>
     <div class="chat-box"><div id="lista-chat" class="chat-lista" aria-live="polite"></div><form id="form-chat" class="chat-form"><input id="chat-nome" type="text" maxlength="40" placeholder="Seu nome ou 'anônimo'"><input id="chat-mensagem" required maxlength="500" type="text" placeholder="Compartilhe uma informação objetiva"><button class="btn btn-primary" type="submit">Enviar</button></form></div>

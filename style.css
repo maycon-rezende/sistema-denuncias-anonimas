@@ -92,8 +92,8 @@ body::before{
 .pagina-denunciante::before{ background:linear-gradient(135deg, rgba(216,230,240,.9), rgba(238,243,247,.78)), url('img/rpd.jpg') center / cover no-repeat; }
 .pagina-mulheres{ background-color:#E2E8EF; background-image:linear-gradient(135deg, rgba(11,31,51,.28), rgba(200,154,60,.13)), url('img/jill.jpg'); background-repeat:no-repeat; background-size:cover; background-position:center center; background-attachment:scroll; position:relative; }
 .pagina-mulheres::before{ content:""; position:fixed; inset:0; z-index:-1; background:linear-gradient(135deg, rgba(226,232,239,.78), rgba(238,243,247,.68)), url('img/jill.jpg') center center / cover no-repeat; }
-.pagina-desaparecidos{ background-color:#D6E4EC; background-image:linear-gradient(135deg, rgba(30,77,114,.15), rgba(200,154,60,.1)), url('img/rpd.jpg'); }
-.pagina-desaparecidos::before{ background:linear-gradient(135deg, rgba(214,228,236,.9), rgba(238,243,247,.78)), url('img/rpd.jpg') center / cover no-repeat; }
+.pagina-desaparecidos{ background-color:#E8F0F4; background-image:radial-gradient(circle at 8% 8%, rgba(200,154,60,.2), transparent 24%),linear-gradient(145deg, rgba(15,55,84,.18), rgba(229,239,245,.62)), url('img/rpd.jpg'); }
+.pagina-desaparecidos::before{ background:linear-gradient(145deg, rgba(232,240,244,.93), rgba(218,231,239,.86)), url('img/rpd.jpg') center / cover no-repeat; }
 .pagina-admin{ background-color:#C8D8E5; background-image:linear-gradient(135deg, rgba(11,31,51,.2), rgba(47,107,150,.12)), url('img/rpd.jpg'); }
 .pagina-admin::before{ background:linear-gradient(135deg, rgba(200,216,229,.9), rgba(224,235,242,.76)), url('img/rpd.jpg') center / cover no-repeat; }
 .pagina-erro{ background-color:#D8E5EE; background-image:linear-gradient(135deg, rgba(11,31,51,.14), rgba(200,154,60,.1)), url('img/office.jpg'); }
