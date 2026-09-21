@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   function limparFeedbackEdicao() { feedbackEdicao.textContent = ''; feedbackEdicao.className = 'mural-edicao__feedback hidden'; }
   function erroDePermissao(acao) {
-    return new Error(`Não foi possível ${acao}: o Supabase não autorizou a alteração. Execute novamente o arquivo supabase-schema.sql no SQL Editor para ativar as permissões de edição e exclusão.`);
+    return new Error(`Não foi possível ${acao}. No Supabase, abra o SQL Editor e execute o arquivo supabase-schema.sql para liberar edição e exclusão.`);
   }
   function normalizarPublicacao(item) {
     const galeria = Array.isArray(item.gallery) ? item.gallery.filter(Boolean) : [];
