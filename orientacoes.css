@@ -55,10 +55,40 @@
 .mural-layout{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);gap:22px;align-items:start}
 .mural-painel{min-width:0;background:rgba(244,248,251,.7);border:1px solid rgba(185,201,214,.7);border-radius:var(--radius-md);padding:18px}
 .mural-form h3,.mural-toolbar h3{font-family:var(--font-body);font-size:1.05rem;margin:0}
-.mural-form{border-top-color:var(--signal)}
+.mural-form{position:relative;overflow:hidden;padding:0;border:1px solid rgba(143,172,197,.65);border-top:0;background:linear-gradient(155deg,#fff 0%,#f5f9fc 100%);box-shadow:0 18px 36px rgba(11,31,51,.1)}
+.mural-form::before{content:'';position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,var(--signal),#e7c473 45%,var(--steel-600))}
+.mural-form__hero{display:flex;align-items:start;justify-content:space-between;gap:16px;padding:28px 25px 18px;background:radial-gradient(circle at 92% 0%,rgba(200,154,60,.19),transparent 34%),linear-gradient(135deg,#0B1F33,#163c5e);color:#fff}
+.mural-form__eyebrow{margin:0 0 7px;color:#F1D487;font-weight:800;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
+.mural-form__hero h3{font-size:1.28rem;color:#fff;margin-bottom:7px}
+.mural-form__hero p:last-child{max-width:34ch;margin:0;color:#cedce8;font-size:.83rem;line-height:1.5}
+.mural-form__seal{display:grid;place-items:center;flex:0 0 auto;width:55px;height:55px;border:1px solid rgba(241,212,135,.7);border-radius:50%;color:#F1D487;font:700 .68rem var(--font-mono);letter-spacing:.04em}
+.mural-form__steps{display:flex;gap:0;list-style:none;margin:0;padding:14px 25px;border-bottom:1px solid var(--line);background:#fff;color:var(--ink-faint);counter-reset:none}
+.mural-form__steps li{display:flex;align-items:center;gap:6px;min-width:0;flex:1;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.mural-form__steps li:not(:last-child)::after{content:'';height:1px;flex:1;background:var(--line);margin:0 9px}
+.mural-form__steps span{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1px solid var(--line-strong);font:700 .68rem var(--font-mono)}
+.mural-form__steps .is-active{color:var(--steel-700)}
+.mural-form__steps .is-active span{background:var(--steel-700);border-color:var(--steel-700);color:#fff}
+.mural-form__group{min-width:0;border:0;border-bottom:1px solid rgba(185,201,214,.65);margin:0;padding:20px 25px 4px}
+.mural-form__group--final{border-bottom:0;padding-bottom:12px}
+.mural-form__group legend{padding:0 0 5px;color:var(--ink-950);font:800 .85rem var(--font-body)}
+.mural-form__group legend span{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:7px;border-radius:50%;background:#E7F0F7;color:var(--steel-700);font:700 .65rem var(--font-mono)}
 .mural-form .field{margin-bottom:16px}
 .mural-form .field-row{gap:12px}
-.mural-form textarea{min-height:105px}
+.mural-form label{display:flex;justify-content:space-between;gap:8px;color:var(--ink-700);font-size:.78rem;font-weight:750}
+.mural-form label em{color:var(--steel-700);font-size:.64rem;font-style:normal;letter-spacing:.03em;text-transform:uppercase}
+.mural-form input:not([type=file]),.mural-form textarea{border:1px solid #c5d5e1;border-radius:8px;background:#fff;padding:11px 12px;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+.mural-form input:not([type=file]):focus,.mural-form textarea:focus{border-color:var(--steel-600);box-shadow:0 0 0 3px rgba(47,107,150,.14);transform:translateY(-1px);outline:0}
+.mural-form textarea{min-height:112px}
+.mural-form .hint{font-size:.73rem;line-height:1.45}
+.mural-form__upload{position:relative;display:flex;align-items:center;gap:12px;min-height:76px;margin-top:7px;padding:12px;border:1px dashed #8eabc1;border-radius:9px;background:linear-gradient(135deg,#f7fbfe,#edf5fa);transition:border-color .18s ease,background-color .18s ease,transform .18s ease}
+.mural-form__upload:hover,.mural-form__upload:focus-within{border-color:var(--steel-600);background:#f1f7fb;transform:translateY(-1px)}
+.mural-form__upload-icon{display:grid;place-items:center;width:37px;height:37px;border-radius:50%;background:var(--steel-700);color:#fff;font:300 1.45rem/1 var(--font-body)}
+.mural-form__upload strong{display:block;color:var(--ink-950);font-size:.82rem}
+.mural-form__upload p{margin:3px 0 0;color:var(--ink-faint);font-size:.72rem}
+.mural-form__upload input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.mural-form__submit{display:flex;align-items:center;justify-content:space-between;margin:12px 25px 0;width:calc(100% - 50px);padding-inline:18px;box-shadow:0 10px 18px rgba(17,67,104,.2);transition:transform .2s ease,box-shadow .2s ease}
+.mural-form__submit:hover{transform:translateY(-2px);box-shadow:0 14px 23px rgba(17,67,104,.28)}
+.mural-form__privacy{margin:12px 25px 23px;color:var(--ink-faint);font-size:.68rem;line-height:1.45;text-align:center}
 .mural-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 .mural-toolbar__eyebrow,.mural-card__label{color:var(--steel-700);font-size:.67rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin:0 0 4px}
 .mural-toolbar input{width:min(100%,250px);border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:10px 12px;font:inherit;background:#fff}
@@ -133,6 +163,7 @@
 .chat-form .btn{height:48px;padding-inline:22px}
 @media (max-width:820px){.orientacao-hero{grid-template-columns:1fr}.orientacao-grid{grid-template-columns:1fr 1fr}.orientacao-contatos{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:820px){.mural-layout{grid-template-columns:1fr}}
+@media (max-width:560px){.mural-form__hero{padding:24px 18px 16px}.mural-form__seal{width:46px;height:46px;font-size:.58rem}.mural-form__steps{padding:12px 18px}.mural-form__steps li{font-size:.58rem}.mural-form__steps li:not(:last-child)::after{margin:0 5px}.mural-form__group{padding:18px 18px 3px}.mural-form__submit{width:calc(100% - 36px);margin-inline:18px}.mural-form__privacy{margin-inline:18px}.mural-form__upload{align-items:flex-start}}
 @media (max-width:560px){.page-orientacao{padding-top:28px}.orientacao-grid,.orientacao-two-col{grid-template-columns:1fr}.orientacao-contatos{grid-template-columns:1fr 1fr}.orientacao-hero__selo{padding:18px}.orientacao-acoes .btn{width:100%}.mural-painel{padding:13px}.mural-toolbar{align-items:stretch;flex-direction:column}.mural-toolbar input{width:100%}.mural-card{grid-template-columns:96px 1fr}.mural-card img{width:96px;min-height:150px}.mural-card__top{flex-direction:column;gap:3px}.mural-card__location{text-align:left}.mural-edicao__gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.forum-regras{flex-direction:column;gap:4px}.chat-form{grid-template-columns:1fr}.chat-form .btn{width:100%}}
 @media (max-width:760px){.pagina-mulheres{background-position:center top;background-size:cover}.pagina-mulheres::before{background-position:center top;background-size:cover;inset:0}}
 @media (max-width:560px){.orientacao-discreta{align-items:stretch;flex-direction:column;gap:14px}.orientacao-discreta .btn{width:100%}.saida-rapida{font-size:.78rem;padding:7px 9px}}

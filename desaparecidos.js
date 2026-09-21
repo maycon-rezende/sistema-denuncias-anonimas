@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const formMural = document.getElementById('form-desaparecido');
   const erroMural = document.getElementById('erro-mural');
   const campoFoto = document.getElementById('desaparecido-foto');
+  const statusFotosMural = document.getElementById('mural-fotos-status');
   const listaMural = document.getElementById('lista-desaparecidos');
   const muralVazio = document.getElementById('mural-vazio');
   const listaEncontrados = document.getElementById('lista-encontrados');
@@ -82,6 +83,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       status,
       criadoEm: item.created_at || item.criadoEm
     };
+  }
+  function atualizarStatusFotosMural() {
+    const quantidade = campoFoto.files?.length || 0;
+    statusFotosMural.textContent = quantidade ? `${quantidade} ${quantidade === 1 ? 'imagem selecionada' : 'imagens selecionadas'}.` : 'A primeira será a foto de capa do alerta.';
   }
   function lerImagem(arquivo) {
     return new Promise((resolve, reject) => {
@@ -246,6 +251,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const arquivos = Array.from(campoFoto.files || []).filter(Boolean);
       if (!arquivos.length) throw new Error('Selecione uma foto recente.');
+      if (arquivos.length > 4) throw new Error('Selecione no máximo 4 imagens para a publicação.');
       const fotos = await processarArquivos(arquivos);
       if (!fotos.length) throw new Error('Selecione ao menos uma foto válida.');
       const nome = document.getElementById('desaparecido-nome').value.trim();
@@ -277,7 +283,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         publicacoes.unshift(normalizarPublicacao(item));
         salvarLista(CHAVE_MURAL, publicacoes);
       }
-      formMural.reset(); await renderizarMural(); await renderizarEncontrados();
+      formMural.reset(); atualizarStatusFotosMural(); await renderizarMural(); await renderizarEncontrados();
     } catch (error) { erroMural.textContent = error.message || error; erroMural.classList.remove('hidden'); }
   });
 
@@ -367,6 +373,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     limparFeedbackEdicao();
     try {
       const arquivos = Array.from(campoFotosEdicao.files || []).filter(Boolean);
+      if (arquivos.length > 4) throw new Error('Selecione no máximo 4 imagens por atualização.');
       const novasFotos = arquivos.length ? await processarArquivos(arquivos) : [];
       const fotosCombinadas = [...novasFotos, ...fotosEmEdicao].filter(Boolean).slice(0, 4);
       if (!fotosCombinadas.length) throw new Error('Mantenha ou adicione ao menos uma foto antes de salvar.');
@@ -394,6 +401,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       erroMural.classList.remove('hidden');
     }
   });
+  campoFoto.addEventListener('change', atualizarStatusFotosMural);
   buscaMural.addEventListener('input', renderizarMural);
   formChat.addEventListener('submit', async event => {
     event.preventDefault();

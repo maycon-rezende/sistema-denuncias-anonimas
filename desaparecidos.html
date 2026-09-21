@@ -26,14 +26,21 @@
     <div class="orientacao-section__heading"><p class="orientacao-kicker">Mural comunitário</p><h2 id="titulo-mural">Divulgar uma pessoa desaparecida</h2><p>Publique somente com autorização da família ou do responsável pelo caso. Informe o número do boletim quando puder.</p></div>
     <div class="mural-layout">
       <form class="orientacao-card mural-form" id="form-desaparecido">
-        <h3>Nova publicação</h3>
-        <div class="field"><label for="desaparecido-nome">Nome da pessoa</label><input id="desaparecido-nome" required type="text" placeholder="Nome completo ou como é conhecida"></div>
-        <div class="field-row"><div class="field"><label for="desaparecido-idade">Idade</label><input id="desaparecido-idade" type="text" inputmode="numeric" placeholder="Ex.: 16 anos"></div><div class="field"><label for="desaparecido-cidade">Cidade/UF</label><input id="desaparecido-cidade" required type="text" placeholder="Cidade onde foi visto"></div></div>
-        <div class="field"><label for="desaparecido-data">Último contato</label><input id="desaparecido-data" required type="text" placeholder="Data, horário e local"></div>
-        <div class="field"><label for="desaparecido-caracteristicas">Características e roupas</label><textarea id="desaparecido-caracteristicas" required minlength="20" placeholder="Altura, cabelo, sinais, roupa e outras informações úteis"></textarea></div>
-        <div class="field"><label for="desaparecido-contato">Telefone de contato</label><input id="desaparecido-contato" required type="tel" placeholder="Número autorizado para receber informações"><p class="hint">Publique apenas um contato autorizado. Não coloque endereço ou documentos.</p></div>
-        <div class="field"><label for="desaparecido-foto">Foto recente</label><input id="desaparecido-foto" required type="file" accept="image/*"><p class="hint">Imagem de até 5 MB. Quando online, a foto é enviada para o armazenamento do Supabase; quando offline, fica salva apenas neste navegador.</p></div>
-        <div id="erro-mural" class="alert alert-error hidden" role="alert"></div><button class="btn btn-primary btn-block" type="submit">Publicar no mural</button>
+        <div class="mural-form__hero"><div><p class="mural-form__eyebrow">Nova mobilização</p><h3>Monte um alerta completo</h3><p>Informações claras e uma foto recente ajudam a comunidade a reconhecer a pessoa.</p></div><span class="mural-form__seal" aria-hidden="true">01—03</span></div>
+        <ol class="mural-form__steps" aria-label="Etapas da publicação"><li class="is-active"><span>1</span>Identificação</li><li><span>2</span>Último contato</li><li><span>3</span>Foto e contato</li></ol>
+        <fieldset class="mural-form__group"><legend><span>01</span> Quem estamos procurando?</legend>
+          <div class="field"><label for="desaparecido-nome">Nome da pessoa <em>obrigatório</em></label><input id="desaparecido-nome" required type="text" placeholder="Nome completo ou como é conhecida"></div>
+          <div class="field-row"><div class="field"><label for="desaparecido-idade">Idade</label><input id="desaparecido-idade" type="text" inputmode="numeric" placeholder="Ex.: 16 anos"></div><div class="field"><label for="desaparecido-cidade">Cidade/UF <em>obrigatório</em></label><input id="desaparecido-cidade" required type="text" placeholder="Onde foi vista"></div></div>
+        </fieldset>
+        <fieldset class="mural-form__group"><legend><span>02</span> Onde e quando?</legend>
+          <div class="field"><label for="desaparecido-data">Último contato <em>obrigatório</em></label><input id="desaparecido-data" required type="text" placeholder="Data, horário e local aproximado"></div>
+          <div class="field"><label for="desaparecido-caracteristicas">Características e roupas <em>obrigatório</em></label><textarea id="desaparecido-caracteristicas" required minlength="20" placeholder="Altura, cabelo, sinais, roupa e outras informações úteis"></textarea><p class="hint">Inclua apenas informações confirmadas que possam ajudar no reconhecimento.</p></div>
+        </fieldset>
+        <fieldset class="mural-form__group mural-form__group--final"><legend><span>03</span> Foto e contato seguro</legend>
+          <div class="field"><label for="desaparecido-foto">Fotos recentes <em>obrigatório</em></label><div class="mural-form__upload"><span class="mural-form__upload-icon" aria-hidden="true">+</span><div><strong>Selecione até 4 imagens</strong><p id="mural-fotos-status">A primeira será a foto de capa do alerta.</p></div><input id="desaparecido-foto" required type="file" accept="image/*" multiple></div><p class="hint">Imagens de até 5 MB cada. Você poderá trocar ou remover fotos depois.</p></div>
+          <div class="field"><label for="desaparecido-contato">Canal de contato autorizado <em>obrigatório</em></label><input id="desaparecido-contato" required type="tel" placeholder="Telefone que pode receber informações"><p class="hint">Nunca publique endereço, documentos ou dados sensíveis.</p></div>
+        </fieldset>
+        <div id="erro-mural" class="alert alert-error hidden" role="alert"></div><button class="btn btn-primary btn-block mural-form__submit" type="submit"><span>Publicar alerta no mural</span><span aria-hidden="true">→</span></button><p class="mural-form__privacy">Ao publicar, você confirma que possui autorização para compartilhar estas informações.</p>
       </form>
       <div class="mural-painel">
         <div class="mural-toolbar"><div><p class="mural-toolbar__eyebrow">Acompanhamento</p><h3>Publicações recentes</h3></div><label class="sr-only" for="busca-mural">Buscar no mural</label><input id="busca-mural" type="search" placeholder="Buscar nome ou cidade"></div>
